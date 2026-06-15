@@ -1,5 +1,3 @@
-import PLSegmental from "./modules/PLSegmental";
-import BalanceSheet from "./modules/BalanceSheet";
 import { useState, useRef, useMemo, useCallback, createContext, useContext } from "react";
 import { CaptureFab, CaptureButton } from "./components/CaptureModal.jsx";
 import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from "recharts";
@@ -3220,7 +3218,7 @@ function FinFlowApp(){
             {active==="pl"       &&<PLModule gf={gf}/>}
             {active==="bs"       &&<BSModule gf={gf}/>}
             {active==="pl-segmental"    && <PLSegmental/>}
-            {active==="balance-sheet-v2" && <BalanceSheet/>}
+            {active==="balance-sheet-v2" && <BalanceSheetSegmental/>}
             {active==="budget"   &&<BudgetModule gf={gf}/>}
             {active==="cashflow"  &&<CashFlowModule gf={gf}/>}
             {active==="wc"       &&<WorkingCapitalModule gf={gf}/>}
@@ -4855,8 +4853,8 @@ const AUTH_KEY     = "finflow_auth_v1";
 const SESSION_KEY  = "finflow_session";
 
 // Client-visible modules only
-const CLIENT_MODULES = ["home","sales","arap","fx","pl","bs","budget","cashflow","wc","forecast","close","assets","headcount","reportpack","ai","vendors"];
-const ADMIN_MODULES  = ["import","home","entities","coa","fx","sales","arap","gl","ic","pl","bs","budget","cashflow","wc","forecast","close","assets","headcount","reportpack","ai","vendors","pr","po","gr","sinvoice","payrun","users"];
+const CLIENT_MODULES = ["home","sales","arap","fx","pl","bs","pl-segmental","balance-sheet-v2","budget","cashflow","wc","forecast","close","assets","headcount","reportpack","ai","vendors"];
+const ADMIN_MODULES  = ["import","home","entities","coa","fx","sales","arap","gl","ic","pl","bs","pl-segmental","balance-sheet-v2","budget","cashflow","wc","forecast","close","assets","headcount","reportpack","ai","vendors","pr","po","gr","sinvoice","payrun","users"];
 
 // ══════════════════════════════════════════════════════════════════
 // SUBSCRIPTION TIERS — GTM land-and-expand gating (P1 redesign)
@@ -5619,6 +5617,282 @@ function AuthedApp({session,onLogout}){
 // ══════════════════════════════════════════════════════════════════
 // ROOT — Auth gate
 // ══════════════════════════════════════════════════════════════════
+
+// ══════════════════════════════════════════════════════════════════
+// PLSegmental — P&L by Segmental with collapsible rows
+// ══════════════════════════════════════════════════════════════════
+const PL_SEG_DATA = {
+  year: "FY 2025",
+  columns: ["ALL", "COMMUNICATION", "OTHER"],
+  sections: [
+    { id:"seg_rev", label:"Revenue", values:[523489000,16234000,0], collapsible:true, children:[
+      { label:"Sales Revenue - Domestic", values:[371910000,9350000,0] },
+      { label:"Sales Revenue - Export",   values:[150970000,6800000,0] },
+      { label:"Intercompany Revenue",     values:[609000,84000,0] },
+    ]},
+    { id:"seg_cos", label:"Cost of Sales", values:[188260000,6732000,0], collapsible:true, children:[
+      { label:"Direct Materials", values:[129860000,4260000,0] },
+      { label:"Direct Labour",    values:[58400000,2472000,0] },
+    ]},
+    { id:"seg_gp",    label:"Gross Profit",             values:[335229000,9502000,0], type:"subtotal" },
+    { id:"seg_gppct", label:"GP %",                     values:[0.64,0.585,0],        type:"metric", format:"pct" },
+    { id:"seg_nonop", label:"Total Non Operating Income / (Expenses)", values:[0,0,0], collapsible:true, children:[] },
+    { id:"seg_dc", label:"Total Direct Cost (DC)", values:[39592000,1739500,0], collapsible:true, children:[
+      { label:"Staff Cost - Direct",   values:[19495000,847000,0] },
+      { label:"Staff Cost - Indirect", values:[11039000,500500,0] },
+      { label:"Marketing & Selling",   values:[9058000,392000,0] },
+      { label:"Travelling Expenses",   values:[0,0,0] },
+    ]},
+    { id:"seg_sr", label:"Total Staff Reward", values:[0,0,0], collapsible:true, children:[
+      { label:"Manning Cost-Bonus",        values:[0,0,0] },
+      { label:"Manning Cost-Incentive",    values:[0,0,0] },
+      { label:"Manning Cost-Staff Reward", values:[0,0,0] },
+    ]},
+    { id:"seg_idc", label:"Total Indirect Cost (IDC)", values:[22943000,1296500,0], collapsible:true, children:[
+      { label:"General & Admin",                   values:[14882000,1018500,0] },
+      { label:"Financing Expenses",                values:[0,0,0] },
+      { label:"Share of Corp Manning costs",       values:[0,0,0] },
+      { label:"Share of Corp Manning costs-Bonus", values:[0,0,0] },
+      { label:"Depreciation Expense",              values:[8061000,278000,0] },
+      { label:"Interest Expense",                  values:[0,0,0] },
+    ]},
+    { id:"seg_opex", label:"Total Operating Expenses", values:[62535000,3036000,0], type:"subtotal" },
+    { id:"seg_pbt",  label:"Profit Before Tax",        values:[272694000,6466000,0], type:"total" },
+  ],
+};
+
+function fmtSegVal(val, format) {
+  if (format === "pct") return val === 0 ? "0.0%" : (val * 100).toFixed(1) + "%";
+  return val === 0 ? "0" : val.toLocaleString("en-US");
+}
+
+function PLSegmental() {
+  const init = {};
+  PL_SEG_DATA.sections.forEach(s => { if (s.collapsible) init[s.id] = s.children && s.children.length > 0; });
+  const [exp, setExp] = useState(init);
+  const toggle = id => setExp(p => ({ ...p, [id]: !p[id] }));
+
+  return (
+    <div style={{ background: P.bg, minHeight: "100vh", color: P.text, fontFamily: "'DM Sans','Segoe UI',sans-serif" }}>
+      <div style={{ padding: "1.25rem 1.25rem 0.6rem", borderBottom: `1px solid ${P.border}` }}>
+        <div style={{ fontSize: "15px", fontWeight: 700, display: "flex", alignItems: "center", gap: "0.4rem", marginBottom: "0.2rem" }}>
+          <span style={{ color: P.mag }}>↗</span> P&L by Segmental — {PL_SEG_DATA.year}
+        </div>
+        <div style={{ fontSize: "11.5px", color: P.muted }}>P&L consolidated by business segments across all entities. Expand categories to view detail.</div>
+      </div>
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "12.5px" }}>
+          <thead>
+            <tr style={{ background: P.surface, borderBottom: `2px solid ${P.border}` }}>
+              <th style={{ padding: "0.55rem 1rem", fontSize: "11px", fontWeight: 600, color: P.muted, letterSpacing: "0.05em", textAlign: "left", width: "55%" }}>DESCRIPTION</th>
+              {PL_SEG_DATA.columns.map(c => (
+                <th key={c} style={{ padding: "0.55rem 1rem", fontSize: "11px", fontWeight: 600, color: P.muted, letterSpacing: "0.05em", textAlign: "right" }}>{c}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {PL_SEG_DATA.sections.map(s => {
+              const type = s.type || (s.collapsible ? "section" : "line");
+              const isOpen = exp[s.id];
+              const bold = type === "subtotal" || type === "total" || type === "section";
+              return (
+                <React.Fragment key={s.id}>
+                  <tr
+                    style={{
+                      borderBottom: `1px solid ${P.border}`,
+                      background: type==="total"?P.surf3:type==="subtotal"?P.surf2:type==="metric"?P.surf2:P.surface,
+                      cursor: s.collapsible ? "pointer" : "default",
+                    }}
+                    onClick={s.collapsible ? () => toggle(s.id) : undefined}
+                  >
+                    <td style={{ padding: "0.5rem 1rem", display: "flex", alignItems: "center", gap: "0.35rem" }}>
+                      {s.collapsible && (
+                        <span style={{ color: P.mag, fontWeight: 700, fontSize: "14px", width: "1rem", flexShrink: 0 }}>
+                          {isOpen ? "∨" : "›"}
+                        </span>
+                      )}
+                      <span style={{ fontWeight: bold ? 700 : 400, paddingLeft: s.collapsible ? 0 : "1.5rem", color: type==="metric" ? P.muted : bold ? P.text : P.sub }}>
+                        {s.label}
+                      </span>
+                    </td>
+                    {s.values.map((v, i) => (
+                      <td key={i} style={{ padding: "0.5rem 1rem", textAlign: "right", fontVariantNumeric: "tabular-nums", fontWeight: bold ? 700 : 400, color: type==="metric" ? P.muted : bold ? P.gold : P.text }}>
+                        {fmtSegVal(v, s.format)}
+                      </td>
+                    ))}
+                  </tr>
+                  {s.collapsible && isOpen && s.children.map((child, ci) => (
+                    <tr key={`${s.id}-${ci}`} style={{ background: P.bg2, borderBottom: `1px solid ${P.border}` }}>
+                      <td style={{ padding: "0.4rem 1rem 0.4rem 2.5rem", color: P.sub }}>{child.label}</td>
+                      {child.values.map((v, i) => (
+                        <td key={i} style={{ padding: "0.4rem 1rem", textAlign: "right", fontVariantNumeric: "tabular-nums", color: P.sub }}>
+                          {fmtSegVal(v)}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </React.Fragment>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+// ══════════════════════════════════════════════════════════════════
+// BalanceSheetSegmental — Consolidated BS with collapsible sections
+// ══════════════════════════════════════════════════════════════════
+const BS_SEG_DATA = {
+  year: "FY 2025",
+  assets: {
+    sections: [
+      { id:"bss_nca", label:"Non-Current Assets", total:84564000, collapsible:true, children:[
+        { label:"Property Plant and Equipment", value:3675000 },
+        { label:"Property Plant and Equipment", value:6150000 },
+        { label:"Property Plant and Equipment", value:72000000 },
+        { label:"Accumulated Depreciation",     value:2550000 },
+        { label:"Accumulated Depreciation",     value:135000 },
+        { label:"Accumulated Depreciation",     value:54000 },
+      ]},
+      { id:"bss_ca", label:"Current Assets", total:634521000, collapsible:true, children:[
+        { label:"Cash and Bank - SGD",                value:12758000 },
+        { label:"Cash and Bank - PHP",                value:412100000 },
+        { label:"Cash and Bank - MYR",                value:24680000 },
+        { label:"Cash and Bank - USD",                value:0 },
+        { label:"Accounts Receivable - Trade",        value:8120000 },
+        { label:"Accounts Receivable - Trade",        value:162200000 },
+        { label:"Accounts Receivable - Trade",        value:12920000 },
+        { label:"Accounts Receivable - Intercompany", value:84000 },
+        { label:"Accounts Receivable - Intercompany", value:1659000 },
+        { label:"Prepaid Expenses",                   value:0 },
+      ]},
+    ],
+    total: 719085000, totalLabel: "Total Assets",
+  },
+  el: {
+    sections: [
+      { id:"bss_cl", label:"Current Liabilities", total:212972000, collapsible:true, children:[
+        { label:"Accounts Payable - Trade",        value:5430000 },
+        { label:"Accounts Payable - Trade",        value:133100000 },
+        { label:"Accounts Payable - Trade",        value:10560000 },
+        { label:"Accounts Payable - Intercompany", value:1400000 },
+        { label:"Accounts Payable - Intercompany", value:343000 },
+        { label:"Accrued Expenses",                value:2632000 },
+        { label:"Accrued Expenses",                value:3717000 },
+        { label:"Accrued Expenses",                value:55790000 },
+        { label:"Tax Payable",                     value:0 },
+      ]},
+      { id:"bss_ncl", label:"Non-Current Liabilities", total:36345000, collapsible:true, children:[] },
+    ],
+    totalLiabilities: 249317000, totalLiabilitiesLabel: "Total Liabilities",
+    netCurrentAssets: 421549000,
+    equity: { id:"bss_eq", label:"Equity", total:185130000, collapsible:true, children:[
+      { label:"Share Capital",     value:11250000 },
+      { label:"Share Capital",     value:7350000 },
+      { label:"Share Capital",     value:166500000 },
+      { label:"Retained Earnings", value:0 },
+      { label:"Retained Earnings", value:0 },
+      { label:"Retained Earnings", value:0 },
+    ]},
+    total: 434447000, totalLabel: "Total Equity & Liabilities",
+    balanced: false,
+  },
+};
+
+function BSSectionBlock({ section, exp, toggle }) {
+  const isOpen = exp[section.id];
+  return (
+    <>
+      <div
+        style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"0.5rem 0", borderBottom:`1px solid ${P.border}`, cursor:section.collapsible?"pointer":"default", userSelect:"none" }}
+        onClick={section.collapsible ? () => toggle(section.id) : undefined}
+      >
+        <div style={{ display:"flex", alignItems:"center", gap:"0.4rem" }}>
+          {section.collapsible && (
+            <span style={{ color:P.mag, fontWeight:700, fontSize:"14px", width:"1rem", flexShrink:0 }}>
+              {isOpen ? "∨" : "›"}
+            </span>
+          )}
+          <span style={{ fontWeight:600, color:P.text }}>{section.label}</span>
+        </div>
+        <span style={{ fontWeight:600, fontVariantNumeric:"tabular-nums", color:P.gold }}>{section.total===0?"0":section.total.toLocaleString("en-US")}</span>
+      </div>
+      {section.collapsible && isOpen && section.children.map((c, i) => (
+        <div key={i} style={{ display:"flex", justifyContent:"space-between", padding:"0.35rem 0 0.35rem 2.5rem", background:P.bg2, borderBottom:`1px solid ${P.border}` }}>
+          <span style={{ color:P.sub }}>{c.label}</span>
+          <span style={{ fontVariantNumeric:"tabular-nums", color:P.sub }}>{c.value===0?"0":c.value.toLocaleString("en-US")}</span>
+        </div>
+      ))}
+    </>
+  );
+}
+
+function BalanceSheetSegmental() {
+  const allSections = [...BS_SEG_DATA.assets.sections, ...BS_SEG_DATA.el.sections, BS_SEG_DATA.el.equity];
+  const init = {};
+  allSections.forEach(s => { if (s.collapsible) init[s.id] = s.children && s.children.length > 0; });
+  const [exp, setExp] = useState(init);
+  const toggle = id => setExp(p => ({ ...p, [id]: !p[id] }));
+  const el = BS_SEG_DATA.el;
+
+  const rowStyle = (bg) => ({ display:"flex", justifyContent:"space-between", padding:"0.6rem 0", background:bg });
+
+  return (
+    <div style={{ background:P.bg, minHeight:"100vh", color:P.text, fontFamily:"'DM Sans','Segoe UI',sans-serif" }}>
+      <div style={{ padding:"1.25rem 1.25rem 0.6rem", borderBottom:`1px solid ${P.border}` }}>
+        <div style={{ fontSize:"15px", fontWeight:700, display:"flex", alignItems:"center", gap:"0.4rem", marginBottom:"0.2rem" }}>
+          <span style={{ color:P.mag }}>↗</span> Balance Sheet — {BS_SEG_DATA.year}
+        </div>
+        <div style={{ fontSize:"11.5px", color:P.muted }}>Consolidated Balance Sheet with collapsible Assets, Liabilities, and Equity sections.</div>
+      </div>
+      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", alignItems:"start", fontSize:"12.5px" }}>
+
+        {/* ── Assets ── */}
+        <div style={{ padding:"1rem 1.25rem 2rem" }}>
+          <div style={{ fontSize:"14px", fontWeight:700, marginBottom:"0.6rem", paddingBottom:"0.35rem", borderBottom:`2px solid ${P.border}` }}>Assets</div>
+          <div style={{ display:"flex", justifyContent:"space-between", fontSize:"11px", fontWeight:600, color:P.muted, letterSpacing:"0.05em", padding:"0.35rem 0", borderBottom:`1px solid ${P.border}`, marginBottom:"0.25rem" }}>
+            <span>DESCRIPTION</span><span>AMOUNT</span>
+          </div>
+          {BS_SEG_DATA.assets.sections.map(s => <BSSectionBlock key={s.id} section={s} exp={exp} toggle={toggle}/>)}
+          <div style={{ ...rowStyle(P.surf2), borderTop:`2px solid ${P.border}`, borderBottom:`2px solid ${P.border}`, marginTop:"0.5rem" }}>
+            <span style={{ fontWeight:700 }}>{BS_SEG_DATA.assets.totalLabel}</span>
+            <span style={{ fontWeight:700, color:P.gold }}>{BS_SEG_DATA.assets.total.toLocaleString("en-US")}</span>
+          </div>
+        </div>
+
+        {/* ── Equity & Liabilities ── */}
+        <div style={{ padding:"1rem 1.25rem 2rem", borderLeft:`1px solid ${P.border}` }}>
+          <div style={{ fontSize:"14px", fontWeight:700, marginBottom:"0.6rem", paddingBottom:"0.35rem", borderBottom:`2px solid ${P.border}` }}>Equity &amp; Liabilities</div>
+          <div style={{ display:"flex", justifyContent:"space-between", fontSize:"11px", fontWeight:600, color:P.muted, letterSpacing:"0.05em", padding:"0.35rem 0", borderBottom:`1px solid ${P.border}`, marginBottom:"0.25rem" }}>
+            <span>DESCRIPTION</span><span>AMOUNT</span>
+          </div>
+          {el.sections.map(s => <BSSectionBlock key={s.id} section={s} exp={exp} toggle={toggle}/>)}
+          <div style={{ ...rowStyle(P.surf2), borderTop:`1px solid ${P.border}`, borderBottom:`1px solid ${P.border}`, marginTop:"0.25rem" }}>
+            <span style={{ fontWeight:700 }}>{el.totalLiabilitiesLabel}</span>
+            <span style={{ fontWeight:700, color:P.gold }}>{el.totalLiabilities.toLocaleString("en-US")}</span>
+          </div>
+          <div style={{ display:"flex", justifyContent:"space-between", padding:"0.45rem 0.5rem", color:"#FAA819", fontWeight:500, background:P.surf3, borderRadius:"3px", margin:"0.35rem 0", fontStyle:"italic" }}>
+            <span>Net Current Assets</span>
+            <span>{el.netCurrentAssets.toLocaleString("en-US")}</span>
+          </div>
+          <BSSectionBlock section={el.equity} exp={exp} toggle={toggle}/>
+          <div style={{ ...rowStyle(P.surf2), borderTop:`2px solid ${P.border}`, borderBottom:`2px solid ${P.border}`, marginTop:"0.5rem" }}>
+            <span style={{ fontWeight:700 }}>{el.totalLabel}</span>
+            <span style={{ fontWeight:700, color:P.gold }}>{el.total.toLocaleString("en-US")}</span>
+          </div>
+          {!el.balanced && (
+            <div style={{ marginTop:"1rem", display:"inline-block", padding:"0.3rem 0.75rem", background:`${P.red}20`, border:`1px solid ${P.red}40`, borderRadius:"4px", color:P.red, fontSize:"11.5px", fontWeight:500 }}>
+              ⚠ WARNING: Balance Sheet Not Balanced
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function FinFlowRoot(){
   // Read ?user= from URL for shareable links
   const urlUser=useMemo(()=>{
