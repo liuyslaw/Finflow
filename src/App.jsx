@@ -211,6 +211,403 @@ const MOCK_GL = [
   {id:"JE202",entityId:"E002",period:"Nov 2024",date:"2024-11-30",ref:"IC-202",description:"IC mgmt fee payable to HQ Nov 2024",drAccount:"5200",crAccount:"2050",currency:"SGD",amount:6250,icEntityId:"E001"},
   {id:"JE203",entityId:"E001",period:"Dec 2024",date:"2024-12-31",ref:"IC-203",description:"IC mgmt fee to SG Dec 2024",drAccount:"1150",crAccount:"4100",currency:"MYR",amount:22000,icEntityId:"E002"},
   {id:"JE204",entityId:"E002",period:"Dec 2024",date:"2024-12-31",ref:"IC-204",description:"IC mgmt fee payable to HQ Dec 2024",drAccount:"5200",crAccount:"2050",currency:"SGD",amount:6250,icEntityId:"E001"}
+,
+  {id:"JE0501",entityId:"E001",period:"Jan 2024",date:"2024-01-31",ref:"DOM-001",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"MYR",amount:40800,icEntityId:null},
+  {id:"JE0502",entityId:"E001",period:"Jan 2024",date:"2024-01-31",ref:"EXP-001",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"MYR",amount:27200,icEntityId:null},
+  {id:"JE0503",entityId:"E001",period:"Jan 2024",date:"2024-01-31",ref:"SDR-002",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"MYR",amount:14280,icEntityId:null},
+  {id:"JE0504",entityId:"E001",period:"Jan 2024",date:"2024-01-31",ref:"SID-002",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"MYR",amount:8568,icEntityId:null},
+  {id:"JE0505",entityId:"E001",period:"Jan 2024",date:"2024-01-31",ref:"MKT-002",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"MYR",amount:4284,icEntityId:null},
+  {id:"JE0506",entityId:"E001",period:"Jan 2024",date:"2024-01-31",ref:"TRV-002",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"MYR",amount:1428,icEntityId:null},
+  {id:"JE0507",entityId:"E001",period:"Jan 2024",date:"2024-01-31",ref:"GAD-003",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"MYR",amount:5746,icEntityId:null},
+  {id:"JE0508",entityId:"E001",period:"Jan 2024",date:"2024-01-31",ref:"FIN-003",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"MYR",amount:3094,icEntityId:null},
+  {id:"JE0509",entityId:"E001",period:"Jan 2024",date:"2024-01-31",ref:"DEP-004",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"MYR",amount:3400,icEntityId:null},
+  {id:"JE0510",entityId:"E001",period:"Jan 2024",date:"2024-01-31",ref:"MAT-005",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"MYR",amount:8568,icEntityId:null},
+  {id:"JE0511",entityId:"E001",period:"Jan 2024",date:"2024-01-31",ref:"LAB-005",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"MYR",amount:3672,icEntityId:null},
+  {id:"JE0512",entityId:"E001",period:"Feb 2024",date:"2024-02-29",ref:"DOM-006",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"MYR",amount:43200,icEntityId:null},
+  {id:"JE0513",entityId:"E001",period:"Feb 2024",date:"2024-02-29",ref:"EXP-006",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"MYR",amount:28800,icEntityId:null},
+  {id:"JE0514",entityId:"E001",period:"Feb 2024",date:"2024-02-29",ref:"SDR-007",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"MYR",amount:15120,icEntityId:null},
+  {id:"JE0515",entityId:"E001",period:"Feb 2024",date:"2024-02-29",ref:"SID-007",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"MYR",amount:9072,icEntityId:null},
+  {id:"JE0516",entityId:"E001",period:"Feb 2024",date:"2024-02-29",ref:"MKT-007",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"MYR",amount:4536,icEntityId:null},
+  {id:"JE0517",entityId:"E001",period:"Feb 2024",date:"2024-02-29",ref:"TRV-007",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"MYR",amount:1512,icEntityId:null},
+  {id:"JE0518",entityId:"E001",period:"Feb 2024",date:"2024-02-29",ref:"GAD-008",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"MYR",amount:6084,icEntityId:null},
+  {id:"JE0519",entityId:"E001",period:"Feb 2024",date:"2024-02-29",ref:"FIN-008",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"MYR",amount:3276,icEntityId:null},
+  {id:"JE0520",entityId:"E001",period:"Feb 2024",date:"2024-02-29",ref:"DEP-009",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"MYR",amount:3600,icEntityId:null},
+  {id:"JE0521",entityId:"E001",period:"Feb 2024",date:"2024-02-29",ref:"MAT-010",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"MYR",amount:9072,icEntityId:null},
+  {id:"JE0522",entityId:"E001",period:"Feb 2024",date:"2024-02-29",ref:"LAB-010",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"MYR",amount:3888,icEntityId:null},
+  {id:"JE0523",entityId:"E001",period:"Mar 2024",date:"2024-03-31",ref:"DOM-011",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"MYR",amount:51000,icEntityId:null},
+  {id:"JE0524",entityId:"E001",period:"Mar 2024",date:"2024-03-31",ref:"EXP-011",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"MYR",amount:34000,icEntityId:null},
+  {id:"JE0525",entityId:"E001",period:"Mar 2024",date:"2024-03-31",ref:"SDR-012",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"MYR",amount:17850,icEntityId:null},
+  {id:"JE0526",entityId:"E001",period:"Mar 2024",date:"2024-03-31",ref:"SID-012",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"MYR",amount:10710,icEntityId:null},
+  {id:"JE0527",entityId:"E001",period:"Mar 2024",date:"2024-03-31",ref:"MKT-012",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"MYR",amount:5355,icEntityId:null},
+  {id:"JE0528",entityId:"E001",period:"Mar 2024",date:"2024-03-31",ref:"TRV-012",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"MYR",amount:1785,icEntityId:null},
+  {id:"JE0529",entityId:"E001",period:"Mar 2024",date:"2024-03-31",ref:"GAD-013",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"MYR",amount:7182,icEntityId:null},
+  {id:"JE0530",entityId:"E001",period:"Mar 2024",date:"2024-03-31",ref:"FIN-013",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"MYR",amount:3868,icEntityId:null},
+  {id:"JE0531",entityId:"E001",period:"Mar 2024",date:"2024-03-31",ref:"DEP-014",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"MYR",amount:4250,icEntityId:null},
+  {id:"JE0532",entityId:"E001",period:"Mar 2024",date:"2024-03-31",ref:"MAT-015",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"MYR",amount:10710,icEntityId:null},
+  {id:"JE0533",entityId:"E001",period:"Mar 2024",date:"2024-03-31",ref:"LAB-015",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"MYR",amount:4590,icEntityId:null},
+  {id:"JE0534",entityId:"E001",period:"Apr 2024",date:"2024-04-30",ref:"DOM-016",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"MYR",amount:46800,icEntityId:null},
+  {id:"JE0535",entityId:"E001",period:"Apr 2024",date:"2024-04-30",ref:"EXP-016",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"MYR",amount:31200,icEntityId:null},
+  {id:"JE0536",entityId:"E001",period:"Apr 2024",date:"2024-04-30",ref:"SDR-017",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"MYR",amount:16380,icEntityId:null},
+  {id:"JE0537",entityId:"E001",period:"Apr 2024",date:"2024-04-30",ref:"SID-017",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"MYR",amount:9828,icEntityId:null},
+  {id:"JE0538",entityId:"E001",period:"Apr 2024",date:"2024-04-30",ref:"MKT-017",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"MYR",amount:4914,icEntityId:null},
+  {id:"JE0539",entityId:"E001",period:"Apr 2024",date:"2024-04-30",ref:"TRV-017",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"MYR",amount:1638,icEntityId:null},
+  {id:"JE0540",entityId:"E001",period:"Apr 2024",date:"2024-04-30",ref:"GAD-018",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"MYR",amount:6591,icEntityId:null},
+  {id:"JE0541",entityId:"E001",period:"Apr 2024",date:"2024-04-30",ref:"FIN-018",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"MYR",amount:3549,icEntityId:null},
+  {id:"JE0542",entityId:"E001",period:"Apr 2024",date:"2024-04-30",ref:"DEP-019",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"MYR",amount:3900,icEntityId:null},
+  {id:"JE0543",entityId:"E001",period:"Apr 2024",date:"2024-04-30",ref:"MAT-020",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"MYR",amount:9828,icEntityId:null},
+  {id:"JE0544",entityId:"E001",period:"Apr 2024",date:"2024-04-30",ref:"LAB-020",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"MYR",amount:4212,icEntityId:null},
+  {id:"JE0545",entityId:"E001",period:"May 2024",date:"2024-05-31",ref:"DOM-021",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"MYR",amount:55200,icEntityId:null},
+  {id:"JE0546",entityId:"E001",period:"May 2024",date:"2024-05-31",ref:"EXP-021",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"MYR",amount:36800,icEntityId:null},
+  {id:"JE0547",entityId:"E001",period:"May 2024",date:"2024-05-31",ref:"SDR-022",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"MYR",amount:19320,icEntityId:null},
+  {id:"JE0548",entityId:"E001",period:"May 2024",date:"2024-05-31",ref:"SID-022",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"MYR",amount:11592,icEntityId:null},
+  {id:"JE0549",entityId:"E001",period:"May 2024",date:"2024-05-31",ref:"MKT-022",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"MYR",amount:5796,icEntityId:null},
+  {id:"JE0550",entityId:"E001",period:"May 2024",date:"2024-05-31",ref:"TRV-022",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"MYR",amount:1932,icEntityId:null},
+  {id:"JE0551",entityId:"E001",period:"May 2024",date:"2024-05-31",ref:"GAD-023",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"MYR",amount:7774,icEntityId:null},
+  {id:"JE0552",entityId:"E001",period:"May 2024",date:"2024-05-31",ref:"FIN-023",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"MYR",amount:4186,icEntityId:null},
+  {id:"JE0553",entityId:"E001",period:"May 2024",date:"2024-05-31",ref:"DEP-024",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"MYR",amount:4600,icEntityId:null},
+  {id:"JE0554",entityId:"E001",period:"May 2024",date:"2024-05-31",ref:"MAT-025",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"MYR",amount:11592,icEntityId:null},
+  {id:"JE0555",entityId:"E001",period:"May 2024",date:"2024-05-31",ref:"LAB-025",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"MYR",amount:4968,icEntityId:null},
+  {id:"JE0556",entityId:"E001",period:"Jun 2024",date:"2024-06-30",ref:"DOM-026",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"MYR",amount:63000,icEntityId:null},
+  {id:"JE0557",entityId:"E001",period:"Jun 2024",date:"2024-06-30",ref:"EXP-026",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"MYR",amount:42000,icEntityId:null},
+  {id:"JE0558",entityId:"E001",period:"Jun 2024",date:"2024-06-30",ref:"SDR-027",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"MYR",amount:22050,icEntityId:null},
+  {id:"JE0559",entityId:"E001",period:"Jun 2024",date:"2024-06-30",ref:"SID-027",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"MYR",amount:13230,icEntityId:null},
+  {id:"JE0560",entityId:"E001",period:"Jun 2024",date:"2024-06-30",ref:"MKT-027",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"MYR",amount:6615,icEntityId:null},
+  {id:"JE0561",entityId:"E001",period:"Jun 2024",date:"2024-06-30",ref:"TRV-027",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"MYR",amount:2205,icEntityId:null},
+  {id:"JE0562",entityId:"E001",period:"Jun 2024",date:"2024-06-30",ref:"GAD-028",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"MYR",amount:8872,icEntityId:null},
+  {id:"JE0563",entityId:"E001",period:"Jun 2024",date:"2024-06-30",ref:"FIN-028",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"MYR",amount:4778,icEntityId:null},
+  {id:"JE0564",entityId:"E001",period:"Jun 2024",date:"2024-06-30",ref:"DEP-029",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"MYR",amount:5250,icEntityId:null},
+  {id:"JE0565",entityId:"E001",period:"Jun 2024",date:"2024-06-30",ref:"MAT-030",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"MYR",amount:13230,icEntityId:null},
+  {id:"JE0566",entityId:"E001",period:"Jun 2024",date:"2024-06-30",ref:"LAB-030",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"MYR",amount:5670,icEntityId:null},
+  {id:"JE0567",entityId:"E001",period:"Jul 2024",date:"2024-07-31",ref:"DOM-031",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"MYR",amount:52800,icEntityId:null},
+  {id:"JE0568",entityId:"E001",period:"Jul 2024",date:"2024-07-31",ref:"EXP-031",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"MYR",amount:35200,icEntityId:null},
+  {id:"JE0569",entityId:"E001",period:"Jul 2024",date:"2024-07-31",ref:"SDR-032",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"MYR",amount:18480,icEntityId:null},
+  {id:"JE0570",entityId:"E001",period:"Jul 2024",date:"2024-07-31",ref:"SID-032",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"MYR",amount:11088,icEntityId:null},
+  {id:"JE0571",entityId:"E001",period:"Jul 2024",date:"2024-07-31",ref:"MKT-032",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"MYR",amount:5544,icEntityId:null},
+  {id:"JE0572",entityId:"E001",period:"Jul 2024",date:"2024-07-31",ref:"TRV-032",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"MYR",amount:1848,icEntityId:null},
+  {id:"JE0573",entityId:"E001",period:"Jul 2024",date:"2024-07-31",ref:"GAD-033",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"MYR",amount:7436,icEntityId:null},
+  {id:"JE0574",entityId:"E001",period:"Jul 2024",date:"2024-07-31",ref:"FIN-033",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"MYR",amount:4004,icEntityId:null},
+  {id:"JE0575",entityId:"E001",period:"Jul 2024",date:"2024-07-31",ref:"DEP-034",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"MYR",amount:4400,icEntityId:null},
+  {id:"JE0576",entityId:"E001",period:"Jul 2024",date:"2024-07-31",ref:"MAT-035",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"MYR",amount:11088,icEntityId:null},
+  {id:"JE0577",entityId:"E001",period:"Jul 2024",date:"2024-07-31",ref:"LAB-035",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"MYR",amount:4752,icEntityId:null},
+  {id:"JE0578",entityId:"E001",period:"Aug 2024",date:"2024-08-31",ref:"DOM-036",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"MYR",amount:57000,icEntityId:null},
+  {id:"JE0579",entityId:"E001",period:"Aug 2024",date:"2024-08-31",ref:"EXP-036",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"MYR",amount:38000,icEntityId:null},
+  {id:"JE0580",entityId:"E001",period:"Aug 2024",date:"2024-08-31",ref:"SDR-037",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"MYR",amount:19950,icEntityId:null},
+  {id:"JE0581",entityId:"E001",period:"Aug 2024",date:"2024-08-31",ref:"SID-037",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"MYR",amount:11970,icEntityId:null},
+  {id:"JE0582",entityId:"E001",period:"Aug 2024",date:"2024-08-31",ref:"MKT-037",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"MYR",amount:5985,icEntityId:null},
+  {id:"JE0583",entityId:"E001",period:"Aug 2024",date:"2024-08-31",ref:"TRV-037",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"MYR",amount:1995,icEntityId:null},
+  {id:"JE0584",entityId:"E001",period:"Aug 2024",date:"2024-08-31",ref:"GAD-038",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"MYR",amount:8028,icEntityId:null},
+  {id:"JE0585",entityId:"E001",period:"Aug 2024",date:"2024-08-31",ref:"FIN-038",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"MYR",amount:4322,icEntityId:null},
+  {id:"JE0586",entityId:"E001",period:"Aug 2024",date:"2024-08-31",ref:"DEP-039",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"MYR",amount:4750,icEntityId:null},
+  {id:"JE0587",entityId:"E001",period:"Aug 2024",date:"2024-08-31",ref:"MAT-040",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"MYR",amount:11970,icEntityId:null},
+  {id:"JE0588",entityId:"E001",period:"Aug 2024",date:"2024-08-31",ref:"LAB-040",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"MYR",amount:5130,icEntityId:null},
+  {id:"JE0589",entityId:"E001",period:"Sep 2024",date:"2024-09-30",ref:"DOM-041",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"MYR",amount:66000,icEntityId:null},
+  {id:"JE0590",entityId:"E001",period:"Sep 2024",date:"2024-09-30",ref:"EXP-041",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"MYR",amount:44000,icEntityId:null},
+  {id:"JE0591",entityId:"E001",period:"Sep 2024",date:"2024-09-30",ref:"SDR-042",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"MYR",amount:23100,icEntityId:null},
+  {id:"JE0592",entityId:"E001",period:"Sep 2024",date:"2024-09-30",ref:"SID-042",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"MYR",amount:13860,icEntityId:null},
+  {id:"JE0593",entityId:"E001",period:"Sep 2024",date:"2024-09-30",ref:"MKT-042",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"MYR",amount:6930,icEntityId:null},
+  {id:"JE0594",entityId:"E001",period:"Sep 2024",date:"2024-09-30",ref:"TRV-042",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"MYR",amount:2310,icEntityId:null},
+  {id:"JE0595",entityId:"E001",period:"Sep 2024",date:"2024-09-30",ref:"GAD-043",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"MYR",amount:9295,icEntityId:null},
+  {id:"JE0596",entityId:"E001",period:"Sep 2024",date:"2024-09-30",ref:"FIN-043",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"MYR",amount:5005,icEntityId:null},
+  {id:"JE0597",entityId:"E001",period:"Sep 2024",date:"2024-09-30",ref:"DEP-044",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"MYR",amount:5500,icEntityId:null},
+  {id:"JE0598",entityId:"E001",period:"Sep 2024",date:"2024-09-30",ref:"MAT-045",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"MYR",amount:13860,icEntityId:null},
+  {id:"JE0599",entityId:"E001",period:"Sep 2024",date:"2024-09-30",ref:"LAB-045",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"MYR",amount:5940,icEntityId:null},
+  {id:"JE0600",entityId:"E001",period:"Oct 2024",date:"2024-10-31",ref:"DOM-046",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"MYR",amount:61200,icEntityId:null},
+  {id:"JE0601",entityId:"E001",period:"Oct 2024",date:"2024-10-31",ref:"EXP-046",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"MYR",amount:40800,icEntityId:null},
+  {id:"JE0602",entityId:"E001",period:"Oct 2024",date:"2024-10-31",ref:"SDR-047",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"MYR",amount:21420,icEntityId:null},
+  {id:"JE0603",entityId:"E001",period:"Oct 2024",date:"2024-10-31",ref:"SID-047",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"MYR",amount:12852,icEntityId:null},
+  {id:"JE0604",entityId:"E001",period:"Oct 2024",date:"2024-10-31",ref:"MKT-047",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"MYR",amount:6426,icEntityId:null},
+  {id:"JE0605",entityId:"E001",period:"Oct 2024",date:"2024-10-31",ref:"TRV-047",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"MYR",amount:2142,icEntityId:null},
+  {id:"JE0606",entityId:"E001",period:"Oct 2024",date:"2024-10-31",ref:"GAD-048",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"MYR",amount:8619,icEntityId:null},
+  {id:"JE0607",entityId:"E001",period:"Oct 2024",date:"2024-10-31",ref:"FIN-048",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"MYR",amount:4641,icEntityId:null},
+  {id:"JE0608",entityId:"E001",period:"Oct 2024",date:"2024-10-31",ref:"DEP-049",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"MYR",amount:5100,icEntityId:null},
+  {id:"JE0609",entityId:"E001",period:"Oct 2024",date:"2024-10-31",ref:"MAT-050",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"MYR",amount:12852,icEntityId:null},
+  {id:"JE0610",entityId:"E001",period:"Oct 2024",date:"2024-10-31",ref:"LAB-050",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"MYR",amount:5508,icEntityId:null},
+  {id:"JE0611",entityId:"E001",period:"Nov 2024",date:"2024-11-30",ref:"DOM-051",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"MYR",amount:46800,icEntityId:null},
+  {id:"JE0612",entityId:"E001",period:"Nov 2024",date:"2024-11-30",ref:"EXP-051",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"MYR",amount:31200,icEntityId:null},
+  {id:"JE0613",entityId:"E001",period:"Nov 2024",date:"2024-11-30",ref:"SDR-052",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"MYR",amount:16380,icEntityId:null},
+  {id:"JE0614",entityId:"E001",period:"Nov 2024",date:"2024-11-30",ref:"SID-052",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"MYR",amount:9828,icEntityId:null},
+  {id:"JE0615",entityId:"E001",period:"Nov 2024",date:"2024-11-30",ref:"MKT-052",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"MYR",amount:4914,icEntityId:null},
+  {id:"JE0616",entityId:"E001",period:"Nov 2024",date:"2024-11-30",ref:"TRV-052",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"MYR",amount:1638,icEntityId:null},
+  {id:"JE0617",entityId:"E001",period:"Nov 2024",date:"2024-11-30",ref:"GAD-053",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"MYR",amount:6591,icEntityId:null},
+  {id:"JE0618",entityId:"E001",period:"Nov 2024",date:"2024-11-30",ref:"FIN-053",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"MYR",amount:3549,icEntityId:null},
+  {id:"JE0619",entityId:"E001",period:"Nov 2024",date:"2024-11-30",ref:"DEP-054",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"MYR",amount:3900,icEntityId:null},
+  {id:"JE0620",entityId:"E001",period:"Nov 2024",date:"2024-11-30",ref:"MAT-055",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"MYR",amount:9828,icEntityId:null},
+  {id:"JE0621",entityId:"E001",period:"Nov 2024",date:"2024-11-30",ref:"LAB-055",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"MYR",amount:4212,icEntityId:null},
+  {id:"JE0622",entityId:"E001",period:"Dec 2024",date:"2024-12-31",ref:"DOM-056",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"MYR",amount:57000,icEntityId:null},
+  {id:"JE0623",entityId:"E001",period:"Dec 2024",date:"2024-12-31",ref:"EXP-056",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"MYR",amount:38000,icEntityId:null},
+  {id:"JE0624",entityId:"E001",period:"Dec 2024",date:"2024-12-31",ref:"SDR-057",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"MYR",amount:19950,icEntityId:null},
+  {id:"JE0625",entityId:"E001",period:"Dec 2024",date:"2024-12-31",ref:"SID-057",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"MYR",amount:11970,icEntityId:null},
+  {id:"JE0626",entityId:"E001",period:"Dec 2024",date:"2024-12-31",ref:"MKT-057",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"MYR",amount:5985,icEntityId:null},
+  {id:"JE0627",entityId:"E001",period:"Dec 2024",date:"2024-12-31",ref:"TRV-057",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"MYR",amount:1995,icEntityId:null},
+  {id:"JE0628",entityId:"E001",period:"Dec 2024",date:"2024-12-31",ref:"GAD-058",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"MYR",amount:8028,icEntityId:null},
+  {id:"JE0629",entityId:"E001",period:"Dec 2024",date:"2024-12-31",ref:"FIN-058",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"MYR",amount:4322,icEntityId:null},
+  {id:"JE0630",entityId:"E001",period:"Dec 2024",date:"2024-12-31",ref:"DEP-059",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"MYR",amount:4750,icEntityId:null},
+  {id:"JE0631",entityId:"E001",period:"Dec 2024",date:"2024-12-31",ref:"MAT-060",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"MYR",amount:11970,icEntityId:null},
+  {id:"JE0632",entityId:"E001",period:"Dec 2024",date:"2024-12-31",ref:"LAB-060",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"MYR",amount:5130,icEntityId:null},
+  {id:"JE0633",entityId:"E002",period:"Jan 2024",date:"2024-01-31",ref:"DOM-061",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"SGD",amount:10800,icEntityId:null},
+  {id:"JE0634",entityId:"E002",period:"Jan 2024",date:"2024-01-31",ref:"EXP-061",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"SGD",amount:7200,icEntityId:null},
+  {id:"JE0635",entityId:"E002",period:"Jan 2024",date:"2024-01-31",ref:"SDR-062",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"SGD",amount:3780,icEntityId:null},
+  {id:"JE0636",entityId:"E002",period:"Jan 2024",date:"2024-01-31",ref:"SID-062",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"SGD",amount:2268,icEntityId:null},
+  {id:"JE0637",entityId:"E002",period:"Jan 2024",date:"2024-01-31",ref:"MKT-062",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"SGD",amount:1134,icEntityId:null},
+  {id:"JE0638",entityId:"E002",period:"Jan 2024",date:"2024-01-31",ref:"TRV-062",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"SGD",amount:378,icEntityId:null},
+  {id:"JE0639",entityId:"E002",period:"Jan 2024",date:"2024-01-31",ref:"GAD-063",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"SGD",amount:1521,icEntityId:null},
+  {id:"JE0640",entityId:"E002",period:"Jan 2024",date:"2024-01-31",ref:"FIN-063",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"SGD",amount:819,icEntityId:null},
+  {id:"JE0641",entityId:"E002",period:"Jan 2024",date:"2024-01-31",ref:"DEP-064",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"SGD",amount:900,icEntityId:null},
+  {id:"JE0642",entityId:"E002",period:"Jan 2024",date:"2024-01-31",ref:"MAT-065",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"SGD",amount:2268,icEntityId:null},
+  {id:"JE0643",entityId:"E002",period:"Jan 2024",date:"2024-01-31",ref:"LAB-065",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"SGD",amount:972,icEntityId:null},
+  {id:"JE0644",entityId:"E002",period:"Feb 2024",date:"2024-02-29",ref:"DOM-066",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"SGD",amount:11700,icEntityId:null},
+  {id:"JE0645",entityId:"E002",period:"Feb 2024",date:"2024-02-29",ref:"EXP-066",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"SGD",amount:7800,icEntityId:null},
+  {id:"JE0646",entityId:"E002",period:"Feb 2024",date:"2024-02-29",ref:"SDR-067",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"SGD",amount:4095,icEntityId:null},
+  {id:"JE0647",entityId:"E002",period:"Feb 2024",date:"2024-02-29",ref:"SID-067",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"SGD",amount:2457,icEntityId:null},
+  {id:"JE0648",entityId:"E002",period:"Feb 2024",date:"2024-02-29",ref:"MKT-067",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"SGD",amount:1228,icEntityId:null},
+  {id:"JE0649",entityId:"E002",period:"Feb 2024",date:"2024-02-29",ref:"TRV-067",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"SGD",amount:410,icEntityId:null},
+  {id:"JE0650",entityId:"E002",period:"Feb 2024",date:"2024-02-29",ref:"GAD-068",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"SGD",amount:1648,icEntityId:null},
+  {id:"JE0651",entityId:"E002",period:"Feb 2024",date:"2024-02-29",ref:"FIN-068",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"SGD",amount:887,icEntityId:null},
+  {id:"JE0652",entityId:"E002",period:"Feb 2024",date:"2024-02-29",ref:"DEP-069",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"SGD",amount:975,icEntityId:null},
+  {id:"JE0653",entityId:"E002",period:"Feb 2024",date:"2024-02-29",ref:"MAT-070",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"SGD",amount:2457,icEntityId:null},
+  {id:"JE0654",entityId:"E002",period:"Feb 2024",date:"2024-02-29",ref:"LAB-070",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"SGD",amount:1053,icEntityId:null},
+  {id:"JE0655",entityId:"E002",period:"Mar 2024",date:"2024-03-31",ref:"DOM-071",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"SGD",amount:13200,icEntityId:null},
+  {id:"JE0656",entityId:"E002",period:"Mar 2024",date:"2024-03-31",ref:"EXP-071",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"SGD",amount:8800,icEntityId:null},
+  {id:"JE0657",entityId:"E002",period:"Mar 2024",date:"2024-03-31",ref:"SDR-072",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"SGD",amount:4620,icEntityId:null},
+  {id:"JE0658",entityId:"E002",period:"Mar 2024",date:"2024-03-31",ref:"SID-072",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"SGD",amount:2772,icEntityId:null},
+  {id:"JE0659",entityId:"E002",period:"Mar 2024",date:"2024-03-31",ref:"MKT-072",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"SGD",amount:1386,icEntityId:null},
+  {id:"JE0660",entityId:"E002",period:"Mar 2024",date:"2024-03-31",ref:"TRV-072",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"SGD",amount:462,icEntityId:null},
+  {id:"JE0661",entityId:"E002",period:"Mar 2024",date:"2024-03-31",ref:"GAD-073",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"SGD",amount:1859,icEntityId:null},
+  {id:"JE0662",entityId:"E002",period:"Mar 2024",date:"2024-03-31",ref:"FIN-073",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"SGD",amount:1001,icEntityId:null},
+  {id:"JE0663",entityId:"E002",period:"Mar 2024",date:"2024-03-31",ref:"DEP-074",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"SGD",amount:1100,icEntityId:null},
+  {id:"JE0664",entityId:"E002",period:"Mar 2024",date:"2024-03-31",ref:"MAT-075",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"SGD",amount:2772,icEntityId:null},
+  {id:"JE0665",entityId:"E002",period:"Mar 2024",date:"2024-03-31",ref:"LAB-075",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"SGD",amount:1188,icEntityId:null},
+  {id:"JE0666",entityId:"E002",period:"Apr 2024",date:"2024-04-30",ref:"DOM-076",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"SGD",amount:12000,icEntityId:null},
+  {id:"JE0667",entityId:"E002",period:"Apr 2024",date:"2024-04-30",ref:"EXP-076",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"SGD",amount:8000,icEntityId:null},
+  {id:"JE0668",entityId:"E002",period:"Apr 2024",date:"2024-04-30",ref:"SDR-077",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"SGD",amount:4200,icEntityId:null},
+  {id:"JE0669",entityId:"E002",period:"Apr 2024",date:"2024-04-30",ref:"SID-077",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"SGD",amount:2520,icEntityId:null},
+  {id:"JE0670",entityId:"E002",period:"Apr 2024",date:"2024-04-30",ref:"MKT-077",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"SGD",amount:1260,icEntityId:null},
+  {id:"JE0671",entityId:"E002",period:"Apr 2024",date:"2024-04-30",ref:"TRV-077",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"SGD",amount:420,icEntityId:null},
+  {id:"JE0672",entityId:"E002",period:"Apr 2024",date:"2024-04-30",ref:"GAD-078",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"SGD",amount:1690,icEntityId:null},
+  {id:"JE0673",entityId:"E002",period:"Apr 2024",date:"2024-04-30",ref:"FIN-078",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"SGD",amount:910,icEntityId:null},
+  {id:"JE0674",entityId:"E002",period:"Apr 2024",date:"2024-04-30",ref:"DEP-079",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"SGD",amount:1000,icEntityId:null},
+  {id:"JE0675",entityId:"E002",period:"Apr 2024",date:"2024-04-30",ref:"MAT-080",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"SGD",amount:2520,icEntityId:null},
+  {id:"JE0676",entityId:"E002",period:"Apr 2024",date:"2024-04-30",ref:"LAB-080",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"SGD",amount:1080,icEntityId:null},
+  {id:"JE0677",entityId:"E002",period:"May 2024",date:"2024-05-31",ref:"DOM-081",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"SGD",amount:14400,icEntityId:null},
+  {id:"JE0678",entityId:"E002",period:"May 2024",date:"2024-05-31",ref:"EXP-081",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"SGD",amount:9600,icEntityId:null},
+  {id:"JE0679",entityId:"E002",period:"May 2024",date:"2024-05-31",ref:"SDR-082",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"SGD",amount:5040,icEntityId:null},
+  {id:"JE0680",entityId:"E002",period:"May 2024",date:"2024-05-31",ref:"SID-082",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"SGD",amount:3024,icEntityId:null},
+  {id:"JE0681",entityId:"E002",period:"May 2024",date:"2024-05-31",ref:"MKT-082",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"SGD",amount:1512,icEntityId:null},
+  {id:"JE0682",entityId:"E002",period:"May 2024",date:"2024-05-31",ref:"TRV-082",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"SGD",amount:504,icEntityId:null},
+  {id:"JE0683",entityId:"E002",period:"May 2024",date:"2024-05-31",ref:"GAD-083",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"SGD",amount:2028,icEntityId:null},
+  {id:"JE0684",entityId:"E002",period:"May 2024",date:"2024-05-31",ref:"FIN-083",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"SGD",amount:1092,icEntityId:null},
+  {id:"JE0685",entityId:"E002",period:"May 2024",date:"2024-05-31",ref:"DEP-084",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"SGD",amount:1200,icEntityId:null},
+  {id:"JE0686",entityId:"E002",period:"May 2024",date:"2024-05-31",ref:"MAT-085",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"SGD",amount:3024,icEntityId:null},
+  {id:"JE0687",entityId:"E002",period:"May 2024",date:"2024-05-31",ref:"LAB-085",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"SGD",amount:1296,icEntityId:null},
+  {id:"JE0688",entityId:"E002",period:"Jun 2024",date:"2024-06-30",ref:"DOM-086",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"SGD",amount:16800,icEntityId:null},
+  {id:"JE0689",entityId:"E002",period:"Jun 2024",date:"2024-06-30",ref:"EXP-086",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"SGD",amount:11200,icEntityId:null},
+  {id:"JE0690",entityId:"E002",period:"Jun 2024",date:"2024-06-30",ref:"SDR-087",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"SGD",amount:5880,icEntityId:null},
+  {id:"JE0691",entityId:"E002",period:"Jun 2024",date:"2024-06-30",ref:"SID-087",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"SGD",amount:3528,icEntityId:null},
+  {id:"JE0692",entityId:"E002",period:"Jun 2024",date:"2024-06-30",ref:"MKT-087",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"SGD",amount:1764,icEntityId:null},
+  {id:"JE0693",entityId:"E002",period:"Jun 2024",date:"2024-06-30",ref:"TRV-087",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"SGD",amount:588,icEntityId:null},
+  {id:"JE0694",entityId:"E002",period:"Jun 2024",date:"2024-06-30",ref:"GAD-088",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"SGD",amount:2366,icEntityId:null},
+  {id:"JE0695",entityId:"E002",period:"Jun 2024",date:"2024-06-30",ref:"FIN-088",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"SGD",amount:1274,icEntityId:null},
+  {id:"JE0696",entityId:"E002",period:"Jun 2024",date:"2024-06-30",ref:"DEP-089",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"SGD",amount:1400,icEntityId:null},
+  {id:"JE0697",entityId:"E002",period:"Jun 2024",date:"2024-06-30",ref:"MAT-090",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"SGD",amount:3528,icEntityId:null},
+  {id:"JE0698",entityId:"E002",period:"Jun 2024",date:"2024-06-30",ref:"LAB-090",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"SGD",amount:1512,icEntityId:null},
+  {id:"JE0699",entityId:"E002",period:"Jul 2024",date:"2024-07-31",ref:"DOM-091",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"SGD",amount:13200,icEntityId:null},
+  {id:"JE0700",entityId:"E002",period:"Jul 2024",date:"2024-07-31",ref:"EXP-091",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"SGD",amount:8800,icEntityId:null},
+  {id:"JE0701",entityId:"E002",period:"Jul 2024",date:"2024-07-31",ref:"SDR-092",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"SGD",amount:4620,icEntityId:null},
+  {id:"JE0702",entityId:"E002",period:"Jul 2024",date:"2024-07-31",ref:"SID-092",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"SGD",amount:2772,icEntityId:null},
+  {id:"JE0703",entityId:"E002",period:"Jul 2024",date:"2024-07-31",ref:"MKT-092",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"SGD",amount:1386,icEntityId:null},
+  {id:"JE0704",entityId:"E002",period:"Jul 2024",date:"2024-07-31",ref:"TRV-092",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"SGD",amount:462,icEntityId:null},
+  {id:"JE0705",entityId:"E002",period:"Jul 2024",date:"2024-07-31",ref:"GAD-093",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"SGD",amount:1859,icEntityId:null},
+  {id:"JE0706",entityId:"E002",period:"Jul 2024",date:"2024-07-31",ref:"FIN-093",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"SGD",amount:1001,icEntityId:null},
+  {id:"JE0707",entityId:"E002",period:"Jul 2024",date:"2024-07-31",ref:"DEP-094",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"SGD",amount:1100,icEntityId:null},
+  {id:"JE0708",entityId:"E002",period:"Jul 2024",date:"2024-07-31",ref:"MAT-095",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"SGD",amount:2772,icEntityId:null},
+  {id:"JE0709",entityId:"E002",period:"Jul 2024",date:"2024-07-31",ref:"LAB-095",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"SGD",amount:1188,icEntityId:null},
+  {id:"JE0710",entityId:"E002",period:"Aug 2024",date:"2024-08-31",ref:"DOM-096",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"SGD",amount:15600,icEntityId:null},
+  {id:"JE0711",entityId:"E002",period:"Aug 2024",date:"2024-08-31",ref:"EXP-096",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"SGD",amount:10400,icEntityId:null},
+  {id:"JE0712",entityId:"E002",period:"Aug 2024",date:"2024-08-31",ref:"SDR-097",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"SGD",amount:5460,icEntityId:null},
+  {id:"JE0713",entityId:"E002",period:"Aug 2024",date:"2024-08-31",ref:"SID-097",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"SGD",amount:3276,icEntityId:null},
+  {id:"JE0714",entityId:"E002",period:"Aug 2024",date:"2024-08-31",ref:"MKT-097",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"SGD",amount:1638,icEntityId:null},
+  {id:"JE0715",entityId:"E002",period:"Aug 2024",date:"2024-08-31",ref:"TRV-097",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"SGD",amount:546,icEntityId:null},
+  {id:"JE0716",entityId:"E002",period:"Aug 2024",date:"2024-08-31",ref:"GAD-098",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"SGD",amount:2197,icEntityId:null},
+  {id:"JE0717",entityId:"E002",period:"Aug 2024",date:"2024-08-31",ref:"FIN-098",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"SGD",amount:1183,icEntityId:null},
+  {id:"JE0718",entityId:"E002",period:"Aug 2024",date:"2024-08-31",ref:"DEP-099",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"SGD",amount:1300,icEntityId:null},
+  {id:"JE0719",entityId:"E002",period:"Aug 2024",date:"2024-08-31",ref:"MAT-100",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"SGD",amount:3276,icEntityId:null},
+  {id:"JE0720",entityId:"E002",period:"Aug 2024",date:"2024-08-31",ref:"LAB-100",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"SGD",amount:1404,icEntityId:null},
+  {id:"JE0721",entityId:"E002",period:"Sep 2024",date:"2024-09-30",ref:"DOM-101",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"SGD",amount:18000,icEntityId:null},
+  {id:"JE0722",entityId:"E002",period:"Sep 2024",date:"2024-09-30",ref:"EXP-101",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"SGD",amount:12000,icEntityId:null},
+  {id:"JE0723",entityId:"E002",period:"Sep 2024",date:"2024-09-30",ref:"SDR-102",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"SGD",amount:6300,icEntityId:null},
+  {id:"JE0724",entityId:"E002",period:"Sep 2024",date:"2024-09-30",ref:"SID-102",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"SGD",amount:3780,icEntityId:null},
+  {id:"JE0725",entityId:"E002",period:"Sep 2024",date:"2024-09-30",ref:"MKT-102",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"SGD",amount:1890,icEntityId:null},
+  {id:"JE0726",entityId:"E002",period:"Sep 2024",date:"2024-09-30",ref:"TRV-102",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"SGD",amount:630,icEntityId:null},
+  {id:"JE0727",entityId:"E002",period:"Sep 2024",date:"2024-09-30",ref:"GAD-103",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"SGD",amount:2535,icEntityId:null},
+  {id:"JE0728",entityId:"E002",period:"Sep 2024",date:"2024-09-30",ref:"FIN-103",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"SGD",amount:1365,icEntityId:null},
+  {id:"JE0729",entityId:"E002",period:"Sep 2024",date:"2024-09-30",ref:"DEP-104",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"SGD",amount:1500,icEntityId:null},
+  {id:"JE0730",entityId:"E002",period:"Sep 2024",date:"2024-09-30",ref:"MAT-105",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"SGD",amount:3780,icEntityId:null},
+  {id:"JE0731",entityId:"E002",period:"Sep 2024",date:"2024-09-30",ref:"LAB-105",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"SGD",amount:1620,icEntityId:null},
+  {id:"JE0732",entityId:"E002",period:"Oct 2024",date:"2024-10-31",ref:"DOM-106",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"SGD",amount:16800,icEntityId:null},
+  {id:"JE0733",entityId:"E002",period:"Oct 2024",date:"2024-10-31",ref:"EXP-106",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"SGD",amount:11200,icEntityId:null},
+  {id:"JE0734",entityId:"E002",period:"Oct 2024",date:"2024-10-31",ref:"SDR-107",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"SGD",amount:5880,icEntityId:null},
+  {id:"JE0735",entityId:"E002",period:"Oct 2024",date:"2024-10-31",ref:"SID-107",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"SGD",amount:3528,icEntityId:null},
+  {id:"JE0736",entityId:"E002",period:"Oct 2024",date:"2024-10-31",ref:"MKT-107",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"SGD",amount:1764,icEntityId:null},
+  {id:"JE0737",entityId:"E002",period:"Oct 2024",date:"2024-10-31",ref:"TRV-107",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"SGD",amount:588,icEntityId:null},
+  {id:"JE0738",entityId:"E002",period:"Oct 2024",date:"2024-10-31",ref:"GAD-108",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"SGD",amount:2366,icEntityId:null},
+  {id:"JE0739",entityId:"E002",period:"Oct 2024",date:"2024-10-31",ref:"FIN-108",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"SGD",amount:1274,icEntityId:null},
+  {id:"JE0740",entityId:"E002",period:"Oct 2024",date:"2024-10-31",ref:"DEP-109",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"SGD",amount:1400,icEntityId:null},
+  {id:"JE0741",entityId:"E002",period:"Oct 2024",date:"2024-10-31",ref:"MAT-110",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"SGD",amount:3528,icEntityId:null},
+  {id:"JE0742",entityId:"E002",period:"Oct 2024",date:"2024-10-31",ref:"LAB-110",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"SGD",amount:1512,icEntityId:null},
+  {id:"JE0743",entityId:"E002",period:"Nov 2024",date:"2024-11-30",ref:"DOM-111",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"SGD",amount:12600,icEntityId:null},
+  {id:"JE0744",entityId:"E002",period:"Nov 2024",date:"2024-11-30",ref:"EXP-111",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"SGD",amount:8400,icEntityId:null},
+  {id:"JE0745",entityId:"E002",period:"Nov 2024",date:"2024-11-30",ref:"SDR-112",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"SGD",amount:4410,icEntityId:null},
+  {id:"JE0746",entityId:"E002",period:"Nov 2024",date:"2024-11-30",ref:"SID-112",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"SGD",amount:2646,icEntityId:null},
+  {id:"JE0747",entityId:"E002",period:"Nov 2024",date:"2024-11-30",ref:"MKT-112",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"SGD",amount:1323,icEntityId:null},
+  {id:"JE0748",entityId:"E002",period:"Nov 2024",date:"2024-11-30",ref:"TRV-112",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"SGD",amount:441,icEntityId:null},
+  {id:"JE0749",entityId:"E002",period:"Nov 2024",date:"2024-11-30",ref:"GAD-113",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"SGD",amount:1774,icEntityId:null},
+  {id:"JE0750",entityId:"E002",period:"Nov 2024",date:"2024-11-30",ref:"FIN-113",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"SGD",amount:956,icEntityId:null},
+  {id:"JE0751",entityId:"E002",period:"Nov 2024",date:"2024-11-30",ref:"DEP-114",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"SGD",amount:1050,icEntityId:null},
+  {id:"JE0752",entityId:"E002",period:"Nov 2024",date:"2024-11-30",ref:"MAT-115",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"SGD",amount:2646,icEntityId:null},
+  {id:"JE0753",entityId:"E002",period:"Nov 2024",date:"2024-11-30",ref:"LAB-115",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"SGD",amount:1134,icEntityId:null},
+  {id:"JE0754",entityId:"E002",period:"Dec 2024",date:"2024-12-31",ref:"DOM-116",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"SGD",amount:16800,icEntityId:null},
+  {id:"JE0755",entityId:"E002",period:"Dec 2024",date:"2024-12-31",ref:"EXP-116",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"SGD",amount:11200,icEntityId:null},
+  {id:"JE0756",entityId:"E002",period:"Dec 2024",date:"2024-12-31",ref:"SDR-117",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"SGD",amount:5880,icEntityId:null},
+  {id:"JE0757",entityId:"E002",period:"Dec 2024",date:"2024-12-31",ref:"SID-117",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"SGD",amount:3528,icEntityId:null},
+  {id:"JE0758",entityId:"E002",period:"Dec 2024",date:"2024-12-31",ref:"MKT-117",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"SGD",amount:1764,icEntityId:null},
+  {id:"JE0759",entityId:"E002",period:"Dec 2024",date:"2024-12-31",ref:"TRV-117",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"SGD",amount:588,icEntityId:null},
+  {id:"JE0760",entityId:"E002",period:"Dec 2024",date:"2024-12-31",ref:"GAD-118",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"SGD",amount:2366,icEntityId:null},
+  {id:"JE0761",entityId:"E002",period:"Dec 2024",date:"2024-12-31",ref:"FIN-118",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"SGD",amount:1274,icEntityId:null},
+  {id:"JE0762",entityId:"E002",period:"Dec 2024",date:"2024-12-31",ref:"DEP-119",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"SGD",amount:1400,icEntityId:null},
+  {id:"JE0763",entityId:"E002",period:"Dec 2024",date:"2024-12-31",ref:"MAT-120",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"SGD",amount:3528,icEntityId:null},
+  {id:"JE0764",entityId:"E002",period:"Dec 2024",date:"2024-12-31",ref:"LAB-120",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"SGD",amount:1512,icEntityId:null},
+  {id:"JE0765",entityId:"E003",period:"Jan 2024",date:"2024-01-31",ref:"DOM-121",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"PHP",amount:348000,icEntityId:null},
+  {id:"JE0766",entityId:"E003",period:"Jan 2024",date:"2024-01-31",ref:"EXP-121",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"PHP",amount:232000,icEntityId:null},
+  {id:"JE0767",entityId:"E003",period:"Jan 2024",date:"2024-01-31",ref:"SDR-122",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"PHP",amount:121800,icEntityId:null},
+  {id:"JE0768",entityId:"E003",period:"Jan 2024",date:"2024-01-31",ref:"SID-122",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"PHP",amount:73080,icEntityId:null},
+  {id:"JE0769",entityId:"E003",period:"Jan 2024",date:"2024-01-31",ref:"MKT-122",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"PHP",amount:36540,icEntityId:null},
+  {id:"JE0770",entityId:"E003",period:"Jan 2024",date:"2024-01-31",ref:"TRV-122",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"PHP",amount:12180,icEntityId:null},
+  {id:"JE0771",entityId:"E003",period:"Jan 2024",date:"2024-01-31",ref:"GAD-123",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"PHP",amount:49010,icEntityId:null},
+  {id:"JE0772",entityId:"E003",period:"Jan 2024",date:"2024-01-31",ref:"FIN-123",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"PHP",amount:26390,icEntityId:null},
+  {id:"JE0773",entityId:"E003",period:"Jan 2024",date:"2024-01-31",ref:"DEP-124",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"PHP",amount:29000,icEntityId:null},
+  {id:"JE0774",entityId:"E003",period:"Jan 2024",date:"2024-01-31",ref:"MAT-125",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"PHP",amount:73080,icEntityId:null},
+  {id:"JE0775",entityId:"E003",period:"Jan 2024",date:"2024-01-31",ref:"LAB-125",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"PHP",amount:31320,icEntityId:null},
+  {id:"JE0776",entityId:"E003",period:"Feb 2024",date:"2024-02-29",ref:"DOM-126",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"PHP",amount:372000,icEntityId:null},
+  {id:"JE0777",entityId:"E003",period:"Feb 2024",date:"2024-02-29",ref:"EXP-126",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"PHP",amount:248000,icEntityId:null},
+  {id:"JE0778",entityId:"E003",period:"Feb 2024",date:"2024-02-29",ref:"SDR-127",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"PHP",amount:130200,icEntityId:null},
+  {id:"JE0779",entityId:"E003",period:"Feb 2024",date:"2024-02-29",ref:"SID-127",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"PHP",amount:78120,icEntityId:null},
+  {id:"JE0780",entityId:"E003",period:"Feb 2024",date:"2024-02-29",ref:"MKT-127",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"PHP",amount:39060,icEntityId:null},
+  {id:"JE0781",entityId:"E003",period:"Feb 2024",date:"2024-02-29",ref:"TRV-127",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"PHP",amount:13020,icEntityId:null},
+  {id:"JE0782",entityId:"E003",period:"Feb 2024",date:"2024-02-29",ref:"GAD-128",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"PHP",amount:52390,icEntityId:null},
+  {id:"JE0783",entityId:"E003",period:"Feb 2024",date:"2024-02-29",ref:"FIN-128",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"PHP",amount:28210,icEntityId:null},
+  {id:"JE0784",entityId:"E003",period:"Feb 2024",date:"2024-02-29",ref:"DEP-129",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"PHP",amount:31000,icEntityId:null},
+  {id:"JE0785",entityId:"E003",period:"Feb 2024",date:"2024-02-29",ref:"MAT-130",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"PHP",amount:78120,icEntityId:null},
+  {id:"JE0786",entityId:"E003",period:"Feb 2024",date:"2024-02-29",ref:"LAB-130",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"PHP",amount:33480,icEntityId:null},
+  {id:"JE0787",entityId:"E003",period:"Mar 2024",date:"2024-03-31",ref:"DOM-131",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"PHP",amount:426000,icEntityId:null},
+  {id:"JE0788",entityId:"E003",period:"Mar 2024",date:"2024-03-31",ref:"EXP-131",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"PHP",amount:284000,icEntityId:null},
+  {id:"JE0789",entityId:"E003",period:"Mar 2024",date:"2024-03-31",ref:"SDR-132",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"PHP",amount:149100,icEntityId:null},
+  {id:"JE0790",entityId:"E003",period:"Mar 2024",date:"2024-03-31",ref:"SID-132",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"PHP",amount:89460,icEntityId:null},
+  {id:"JE0791",entityId:"E003",period:"Mar 2024",date:"2024-03-31",ref:"MKT-132",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"PHP",amount:44730,icEntityId:null},
+  {id:"JE0792",entityId:"E003",period:"Mar 2024",date:"2024-03-31",ref:"TRV-132",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"PHP",amount:14910,icEntityId:null},
+  {id:"JE0793",entityId:"E003",period:"Mar 2024",date:"2024-03-31",ref:"GAD-133",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"PHP",amount:59995,icEntityId:null},
+  {id:"JE0794",entityId:"E003",period:"Mar 2024",date:"2024-03-31",ref:"FIN-133",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"PHP",amount:32305,icEntityId:null},
+  {id:"JE0795",entityId:"E003",period:"Mar 2024",date:"2024-03-31",ref:"DEP-134",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"PHP",amount:35500,icEntityId:null},
+  {id:"JE0796",entityId:"E003",period:"Mar 2024",date:"2024-03-31",ref:"MAT-135",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"PHP",amount:89460,icEntityId:null},
+  {id:"JE0797",entityId:"E003",period:"Mar 2024",date:"2024-03-31",ref:"LAB-135",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"PHP",amount:38340,icEntityId:null},
+  {id:"JE0798",entityId:"E003",period:"Apr 2024",date:"2024-04-30",ref:"DOM-136",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"PHP",amount:408000,icEntityId:null},
+  {id:"JE0799",entityId:"E003",period:"Apr 2024",date:"2024-04-30",ref:"EXP-136",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"PHP",amount:272000,icEntityId:null},
+  {id:"JE0800",entityId:"E003",period:"Apr 2024",date:"2024-04-30",ref:"SDR-137",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"PHP",amount:142800,icEntityId:null},
+  {id:"JE0801",entityId:"E003",period:"Apr 2024",date:"2024-04-30",ref:"SID-137",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"PHP",amount:85680,icEntityId:null},
+  {id:"JE0802",entityId:"E003",period:"Apr 2024",date:"2024-04-30",ref:"MKT-137",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"PHP",amount:42840,icEntityId:null},
+  {id:"JE0803",entityId:"E003",period:"Apr 2024",date:"2024-04-30",ref:"TRV-137",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"PHP",amount:14280,icEntityId:null},
+  {id:"JE0804",entityId:"E003",period:"Apr 2024",date:"2024-04-30",ref:"GAD-138",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"PHP",amount:57460,icEntityId:null},
+  {id:"JE0805",entityId:"E003",period:"Apr 2024",date:"2024-04-30",ref:"FIN-138",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"PHP",amount:30940,icEntityId:null},
+  {id:"JE0806",entityId:"E003",period:"Apr 2024",date:"2024-04-30",ref:"DEP-139",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"PHP",amount:34000,icEntityId:null},
+  {id:"JE0807",entityId:"E003",period:"Apr 2024",date:"2024-04-30",ref:"MAT-140",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"PHP",amount:85680,icEntityId:null},
+  {id:"JE0808",entityId:"E003",period:"Apr 2024",date:"2024-04-30",ref:"LAB-140",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"PHP",amount:36720,icEntityId:null},
+  {id:"JE0809",entityId:"E003",period:"May 2024",date:"2024-05-31",ref:"DOM-141",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"PHP",amount:450000,icEntityId:null},
+  {id:"JE0810",entityId:"E003",period:"May 2024",date:"2024-05-31",ref:"EXP-141",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"PHP",amount:300000,icEntityId:null},
+  {id:"JE0811",entityId:"E003",period:"May 2024",date:"2024-05-31",ref:"SDR-142",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"PHP",amount:157500,icEntityId:null},
+  {id:"JE0812",entityId:"E003",period:"May 2024",date:"2024-05-31",ref:"SID-142",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"PHP",amount:94500,icEntityId:null},
+  {id:"JE0813",entityId:"E003",period:"May 2024",date:"2024-05-31",ref:"MKT-142",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"PHP",amount:47250,icEntityId:null},
+  {id:"JE0814",entityId:"E003",period:"May 2024",date:"2024-05-31",ref:"TRV-142",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"PHP",amount:15750,icEntityId:null},
+  {id:"JE0815",entityId:"E003",period:"May 2024",date:"2024-05-31",ref:"GAD-143",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"PHP",amount:63375,icEntityId:null},
+  {id:"JE0816",entityId:"E003",period:"May 2024",date:"2024-05-31",ref:"FIN-143",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"PHP",amount:34125,icEntityId:null},
+  {id:"JE0817",entityId:"E003",period:"May 2024",date:"2024-05-31",ref:"DEP-144",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"PHP",amount:37500,icEntityId:null},
+  {id:"JE0818",entityId:"E003",period:"May 2024",date:"2024-05-31",ref:"MAT-145",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"PHP",amount:94500,icEntityId:null},
+  {id:"JE0819",entityId:"E003",period:"May 2024",date:"2024-05-31",ref:"LAB-145",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"PHP",amount:40500,icEntityId:null},
+  {id:"JE0820",entityId:"E003",period:"Jun 2024",date:"2024-06-30",ref:"DOM-146",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"PHP",amount:492000,icEntityId:null},
+  {id:"JE0821",entityId:"E003",period:"Jun 2024",date:"2024-06-30",ref:"EXP-146",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"PHP",amount:328000,icEntityId:null},
+  {id:"JE0822",entityId:"E003",period:"Jun 2024",date:"2024-06-30",ref:"SDR-147",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"PHP",amount:172200,icEntityId:null},
+  {id:"JE0823",entityId:"E003",period:"Jun 2024",date:"2024-06-30",ref:"SID-147",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"PHP",amount:103320,icEntityId:null},
+  {id:"JE0824",entityId:"E003",period:"Jun 2024",date:"2024-06-30",ref:"MKT-147",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"PHP",amount:51660,icEntityId:null},
+  {id:"JE0825",entityId:"E003",period:"Jun 2024",date:"2024-06-30",ref:"TRV-147",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"PHP",amount:17220,icEntityId:null},
+  {id:"JE0826",entityId:"E003",period:"Jun 2024",date:"2024-06-30",ref:"GAD-148",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"PHP",amount:69290,icEntityId:null},
+  {id:"JE0827",entityId:"E003",period:"Jun 2024",date:"2024-06-30",ref:"FIN-148",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"PHP",amount:37310,icEntityId:null},
+  {id:"JE0828",entityId:"E003",period:"Jun 2024",date:"2024-06-30",ref:"DEP-149",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"PHP",amount:41000,icEntityId:null},
+  {id:"JE0829",entityId:"E003",period:"Jun 2024",date:"2024-06-30",ref:"MAT-150",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"PHP",amount:103320,icEntityId:null},
+  {id:"JE0830",entityId:"E003",period:"Jun 2024",date:"2024-06-30",ref:"LAB-150",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"PHP",amount:44280,icEntityId:null},
+  {id:"JE0831",entityId:"E003",period:"Jul 2024",date:"2024-07-31",ref:"DOM-151",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"PHP",amount:456000,icEntityId:null},
+  {id:"JE0832",entityId:"E003",period:"Jul 2024",date:"2024-07-31",ref:"EXP-151",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"PHP",amount:304000,icEntityId:null},
+  {id:"JE0833",entityId:"E003",period:"Jul 2024",date:"2024-07-31",ref:"SDR-152",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"PHP",amount:159600,icEntityId:null},
+  {id:"JE0834",entityId:"E003",period:"Jul 2024",date:"2024-07-31",ref:"SID-152",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"PHP",amount:95760,icEntityId:null},
+  {id:"JE0835",entityId:"E003",period:"Jul 2024",date:"2024-07-31",ref:"MKT-152",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"PHP",amount:47880,icEntityId:null},
+  {id:"JE0836",entityId:"E003",period:"Jul 2024",date:"2024-07-31",ref:"TRV-152",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"PHP",amount:15960,icEntityId:null},
+  {id:"JE0837",entityId:"E003",period:"Jul 2024",date:"2024-07-31",ref:"GAD-153",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"PHP",amount:64220,icEntityId:null},
+  {id:"JE0838",entityId:"E003",period:"Jul 2024",date:"2024-07-31",ref:"FIN-153",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"PHP",amount:34580,icEntityId:null},
+  {id:"JE0839",entityId:"E003",period:"Jul 2024",date:"2024-07-31",ref:"DEP-154",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"PHP",amount:38000,icEntityId:null},
+  {id:"JE0840",entityId:"E003",period:"Jul 2024",date:"2024-07-31",ref:"MAT-155",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"PHP",amount:95760,icEntityId:null},
+  {id:"JE0841",entityId:"E003",period:"Jul 2024",date:"2024-07-31",ref:"LAB-155",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"PHP",amount:41040,icEntityId:null},
+  {id:"JE0842",entityId:"E003",period:"Aug 2024",date:"2024-08-31",ref:"DOM-156",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"PHP",amount:480000,icEntityId:null},
+  {id:"JE0843",entityId:"E003",period:"Aug 2024",date:"2024-08-31",ref:"EXP-156",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"PHP",amount:320000,icEntityId:null},
+  {id:"JE0844",entityId:"E003",period:"Aug 2024",date:"2024-08-31",ref:"SDR-157",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"PHP",amount:168000,icEntityId:null},
+  {id:"JE0845",entityId:"E003",period:"Aug 2024",date:"2024-08-31",ref:"SID-157",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"PHP",amount:100800,icEntityId:null},
+  {id:"JE0846",entityId:"E003",period:"Aug 2024",date:"2024-08-31",ref:"MKT-157",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"PHP",amount:50400,icEntityId:null},
+  {id:"JE0847",entityId:"E003",period:"Aug 2024",date:"2024-08-31",ref:"TRV-157",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"PHP",amount:16800,icEntityId:null},
+  {id:"JE0848",entityId:"E003",period:"Aug 2024",date:"2024-08-31",ref:"GAD-158",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"PHP",amount:67600,icEntityId:null},
+  {id:"JE0849",entityId:"E003",period:"Aug 2024",date:"2024-08-31",ref:"FIN-158",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"PHP",amount:36400,icEntityId:null},
+  {id:"JE0850",entityId:"E003",period:"Aug 2024",date:"2024-08-31",ref:"DEP-159",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"PHP",amount:40000,icEntityId:null},
+  {id:"JE0851",entityId:"E003",period:"Aug 2024",date:"2024-08-31",ref:"MAT-160",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"PHP",amount:100800,icEntityId:null},
+  {id:"JE0852",entityId:"E003",period:"Aug 2024",date:"2024-08-31",ref:"LAB-160",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"PHP",amount:43200,icEntityId:null},
+  {id:"JE0853",entityId:"E003",period:"Sep 2024",date:"2024-09-30",ref:"DOM-161",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"PHP",amount:522000,icEntityId:null},
+  {id:"JE0854",entityId:"E003",period:"Sep 2024",date:"2024-09-30",ref:"EXP-161",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"PHP",amount:348000,icEntityId:null},
+  {id:"JE0855",entityId:"E003",period:"Sep 2024",date:"2024-09-30",ref:"SDR-162",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"PHP",amount:182700,icEntityId:null},
+  {id:"JE0856",entityId:"E003",period:"Sep 2024",date:"2024-09-30",ref:"SID-162",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"PHP",amount:109620,icEntityId:null},
+  {id:"JE0857",entityId:"E003",period:"Sep 2024",date:"2024-09-30",ref:"MKT-162",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"PHP",amount:54810,icEntityId:null},
+  {id:"JE0858",entityId:"E003",period:"Sep 2024",date:"2024-09-30",ref:"TRV-162",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"PHP",amount:18270,icEntityId:null},
+  {id:"JE0859",entityId:"E003",period:"Sep 2024",date:"2024-09-30",ref:"GAD-163",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"PHP",amount:73515,icEntityId:null},
+  {id:"JE0860",entityId:"E003",period:"Sep 2024",date:"2024-09-30",ref:"FIN-163",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"PHP",amount:39585,icEntityId:null},
+  {id:"JE0861",entityId:"E003",period:"Sep 2024",date:"2024-09-30",ref:"DEP-164",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"PHP",amount:43500,icEntityId:null},
+  {id:"JE0862",entityId:"E003",period:"Sep 2024",date:"2024-09-30",ref:"MAT-165",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"PHP",amount:109620,icEntityId:null},
+  {id:"JE0863",entityId:"E003",period:"Sep 2024",date:"2024-09-30",ref:"LAB-165",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"PHP",amount:46980,icEntityId:null},
+  {id:"JE0864",entityId:"E003",period:"Oct 2024",date:"2024-10-31",ref:"DOM-166",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"PHP",amount:504000,icEntityId:null},
+  {id:"JE0865",entityId:"E003",period:"Oct 2024",date:"2024-10-31",ref:"EXP-166",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"PHP",amount:336000,icEntityId:null},
+  {id:"JE0866",entityId:"E003",period:"Oct 2024",date:"2024-10-31",ref:"SDR-167",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"PHP",amount:176400,icEntityId:null},
+  {id:"JE0867",entityId:"E003",period:"Oct 2024",date:"2024-10-31",ref:"SID-167",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"PHP",amount:105840,icEntityId:null},
+  {id:"JE0868",entityId:"E003",period:"Oct 2024",date:"2024-10-31",ref:"MKT-167",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"PHP",amount:52920,icEntityId:null},
+  {id:"JE0869",entityId:"E003",period:"Oct 2024",date:"2024-10-31",ref:"TRV-167",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"PHP",amount:17640,icEntityId:null},
+  {id:"JE0870",entityId:"E003",period:"Oct 2024",date:"2024-10-31",ref:"GAD-168",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"PHP",amount:70980,icEntityId:null},
+  {id:"JE0871",entityId:"E003",period:"Oct 2024",date:"2024-10-31",ref:"FIN-168",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"PHP",amount:38220,icEntityId:null},
+  {id:"JE0872",entityId:"E003",period:"Oct 2024",date:"2024-10-31",ref:"DEP-169",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"PHP",amount:42000,icEntityId:null},
+  {id:"JE0873",entityId:"E003",period:"Oct 2024",date:"2024-10-31",ref:"MAT-170",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"PHP",amount:105840,icEntityId:null},
+  {id:"JE0874",entityId:"E003",period:"Oct 2024",date:"2024-10-31",ref:"LAB-170",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"PHP",amount:45360,icEntityId:null},
+  {id:"JE0875",entityId:"E003",period:"Nov 2024",date:"2024-11-30",ref:"DOM-171",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"PHP",amount:432000,icEntityId:null},
+  {id:"JE0876",entityId:"E003",period:"Nov 2024",date:"2024-11-30",ref:"EXP-171",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"PHP",amount:288000,icEntityId:null},
+  {id:"JE0877",entityId:"E003",period:"Nov 2024",date:"2024-11-30",ref:"SDR-172",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"PHP",amount:151200,icEntityId:null},
+  {id:"JE0878",entityId:"E003",period:"Nov 2024",date:"2024-11-30",ref:"SID-172",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"PHP",amount:90720,icEntityId:null},
+  {id:"JE0879",entityId:"E003",period:"Nov 2024",date:"2024-11-30",ref:"MKT-172",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"PHP",amount:45360,icEntityId:null},
+  {id:"JE0880",entityId:"E003",period:"Nov 2024",date:"2024-11-30",ref:"TRV-172",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"PHP",amount:15120,icEntityId:null},
+  {id:"JE0881",entityId:"E003",period:"Nov 2024",date:"2024-11-30",ref:"GAD-173",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"PHP",amount:60840,icEntityId:null},
+  {id:"JE0882",entityId:"E003",period:"Nov 2024",date:"2024-11-30",ref:"FIN-173",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"PHP",amount:32760,icEntityId:null},
+  {id:"JE0883",entityId:"E003",period:"Nov 2024",date:"2024-11-30",ref:"DEP-174",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"PHP",amount:36000,icEntityId:null},
+  {id:"JE0884",entityId:"E003",period:"Nov 2024",date:"2024-11-30",ref:"MAT-175",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"PHP",amount:90720,icEntityId:null},
+  {id:"JE0885",entityId:"E003",period:"Nov 2024",date:"2024-11-30",ref:"LAB-175",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"PHP",amount:38880,icEntityId:null},
+  {id:"JE0886",entityId:"E003",period:"Dec 2024",date:"2024-12-31",ref:"DOM-176",description:"Sales Revenue - Domestic",drAccount:"1100",crAccount:"4001",currency:"PHP",amount:510000,icEntityId:null},
+  {id:"JE0887",entityId:"E003",period:"Dec 2024",date:"2024-12-31",ref:"EXP-176",description:"Sales Revenue - Export",drAccount:"1100",crAccount:"4002",currency:"PHP",amount:340000,icEntityId:null},
+  {id:"JE0888",entityId:"E003",period:"Dec 2024",date:"2024-12-31",ref:"SDR-177",description:"Staff Cost - Direct",drAccount:"5101",crAccount:"2000",currency:"PHP",amount:178500,icEntityId:null},
+  {id:"JE0889",entityId:"E003",period:"Dec 2024",date:"2024-12-31",ref:"SID-177",description:"Staff Cost - Indirect",drAccount:"5102",crAccount:"2000",currency:"PHP",amount:107100,icEntityId:null},
+  {id:"JE0890",entityId:"E003",period:"Dec 2024",date:"2024-12-31",ref:"MKT-177",description:"Marketing & Selling",drAccount:"5103",crAccount:"2000",currency:"PHP",amount:53550,icEntityId:null},
+  {id:"JE0891",entityId:"E003",period:"Dec 2024",date:"2024-12-31",ref:"TRV-177",description:"Travelling Expenses",drAccount:"5104",crAccount:"2000",currency:"PHP",amount:17850,icEntityId:null},
+  {id:"JE0892",entityId:"E003",period:"Dec 2024",date:"2024-12-31",ref:"GAD-178",description:"General & Admin",drAccount:"5401",crAccount:"2000",currency:"PHP",amount:71825,icEntityId:null},
+  {id:"JE0893",entityId:"E003",period:"Dec 2024",date:"2024-12-31",ref:"FIN-178",description:"Financing Expenses",drAccount:"5501",crAccount:"2000",currency:"PHP",amount:38675,icEntityId:null},
+  {id:"JE0894",entityId:"E003",period:"Dec 2024",date:"2024-12-31",ref:"DEP-179",description:"Depreciation Expense",drAccount:"5301",crAccount:"1500",currency:"PHP",amount:42500,icEntityId:null},
+  {id:"JE0895",entityId:"E003",period:"Dec 2024",date:"2024-12-31",ref:"MAT-180",description:"Direct Materials",drAccount:"5001",crAccount:"2000",currency:"PHP",amount:107100,icEntityId:null},
+  {id:"JE0896",entityId:"E003",period:"Dec 2024",date:"2024-12-31",ref:"LAB-180",description:"Direct Labour",drAccount:"5002",crAccount:"2000",currency:"PHP",amount:45900,icEntityId:null}
 ];
 
 const MOCK_AR = [
@@ -552,16 +949,45 @@ const DEFAULT_COA = [
   { code:"3100", name:"Retained Earnings",          class:"E", group:"Equity",             icEligible:false, fxMethod:"historical",active:true },
   { code:"3200", name:"Translation Reserve",        class:"E", group:"Equity",             icEligible:false, fxMethod:"closing",   active:true },
   // Revenue
-  { code:"4000", name:"Revenue — External",         class:"R", group:"Revenue",            icEligible:false, fxMethod:"average",   active:true },
+  { code:"4000", name:"Revenue — External",         class:"R", group:"Revenue",            icEligible:false, fxMethod:"average",   active:false },
   { code:"4100", name:"Revenue — Intercompany",     class:"R", group:"Revenue",            icEligible:true,  fxMethod:"average",   active:true },
-  { code:"4200", name:"Other Income",               class:"R", group:"Revenue",            icEligible:false, fxMethod:"average",   active:true },
+  { code:"4200", name:"Other Income",               class:"R", group:"Revenue",            icEligible:false, fxMethod:"average",   active:false },
   // Expenses
-  { code:"5000", name:"Cost of Sales",              class:"X", group:"Expenses",           icEligible:false, fxMethod:"average",   active:true },
-  { code:"5100", name:"Staff Costs",                class:"X", group:"Expenses",           icEligible:false, fxMethod:"average",   active:true },
+  { code:"5000", name:"Cost of Sales",              class:"X", group:"Expenses",           icEligible:false, fxMethod:"average",   active:false },
+  { code:"5100", name:"Staff Costs",                class:"X", group:"Expenses",           icEligible:false, fxMethod:"average",   active:false },
   { code:"5200", name:"Management Fee Expense",     class:"X", group:"Expenses",           icEligible:true,  fxMethod:"average",   active:true },
-  { code:"5300", name:"Depreciation",               class:"X", group:"Expenses",           icEligible:false, fxMethod:"average",   active:true },
-  { code:"5400", name:"General & Admin",            class:"X", group:"Expenses",           icEligible:false, fxMethod:"average",   active:true },
-  { code:"5500", name:"Finance Costs",              class:"X", group:"Expenses",           icEligible:false, fxMethod:"average",   active:true },
+  { code:"5300", name:"Depreciation",               class:"X", group:"Expenses",           icEligible:false, fxMethod:"average",   active:false },
+  { code:"5400", name:"General & Admin",            class:"X", group:"Expenses",           icEligible:false, fxMethod:"average",   active:false },
+  { code:"5500", name:"Finance Costs",              class:"X", group:"Expenses",           icEligible:false, fxMethod:"average",   active:false },
+  // ── Granular P&L accounts matching segmental structure ───────────
+  // Revenue breakdown
+  { code:"4001", name:"Sales Revenue - Domestic",          class:"R", group:"Revenue",       icEligible:false, fxMethod:"average", active:true },
+  { code:"4002", name:"Sales Revenue - Export",            class:"R", group:"Revenue",       icEligible:false, fxMethod:"average", active:true },
+  // Non-operating income
+  { code:"4210", name:"Interest Income",                   class:"R", group:"Non-Operating", icEligible:false, fxMethod:"average", active:true },
+  { code:"4211", name:"Forex Income/(loss) - Realised",    class:"R", group:"Non-Operating", icEligible:false, fxMethod:"average", active:true },
+  { code:"4212", name:"Forex Income/(loss) - Unrealised",  class:"R", group:"Non-Operating", icEligible:false, fxMethod:"average", active:true },
+  { code:"4213", name:"Rebates",                           class:"R", group:"Non-Operating", icEligible:false, fxMethod:"average", active:true },
+  { code:"4214", name:"Others",                            class:"R", group:"Non-Operating", icEligible:false, fxMethod:"average", active:true },
+  // COGS breakdown
+  { code:"5001", name:"Direct Materials",                  class:"X", group:"Cost of Sales", icEligible:false, fxMethod:"average", active:true },
+  { code:"5002", name:"Direct Labour",                     class:"X", group:"Cost of Sales", icEligible:false, fxMethod:"average", active:true },
+  // Direct Cost breakdown
+  { code:"5101", name:"Staff Cost - Direct",               class:"X", group:"Direct Cost",   icEligible:false, fxMethod:"average", active:true },
+  { code:"5102", name:"Staff Cost - Indirect",             class:"X", group:"Direct Cost",   icEligible:false, fxMethod:"average", active:true },
+  { code:"5103", name:"Marketing & Selling",               class:"X", group:"Direct Cost",   icEligible:false, fxMethod:"average", active:true },
+  { code:"5104", name:"Travelling Expenses",               class:"X", group:"Direct Cost",   icEligible:false, fxMethod:"average", active:true },
+  // Staff Reward breakdown
+  { code:"5110", name:"Manning Cost-Bonus",                class:"X", group:"Staff Reward",  icEligible:false, fxMethod:"average", active:true },
+  { code:"5111", name:"Manning Cost-Incentive",            class:"X", group:"Staff Reward",  icEligible:false, fxMethod:"average", active:true },
+  { code:"5112", name:"Manning Cost-Staff Reward",         class:"X", group:"Staff Reward",  icEligible:false, fxMethod:"average", active:true },
+  // Indirect Cost breakdown
+  { code:"5401", name:"General & Admin",                   class:"X", group:"Indirect Cost", icEligible:false, fxMethod:"average", active:true },
+  { code:"5501", name:"Financing Expenses",                class:"X", group:"Indirect Cost", icEligible:false, fxMethod:"average", active:true },
+  { code:"5402", name:"Share of Corp Manning costs",       class:"X", group:"Indirect Cost", icEligible:false, fxMethod:"average", active:true },
+  { code:"5403", name:"Share of Corp Manning costs-Bonus", class:"X", group:"Indirect Cost", icEligible:false, fxMethod:"average", active:true },
+  { code:"5301", name:"Depreciation Expense",              class:"X", group:"Indirect Cost", icEligible:false, fxMethod:"average", active:true },
+  { code:"5502", name:"Interest Expense",                  class:"X", group:"Indirect Cost", icEligible:false, fxMethod:"average", active:true },
 ];
 
 // ── Sample entities ───────────────────────────────────────────────
@@ -3742,7 +4168,7 @@ function PLModule({gf}){
   const [cP2,setCP2]=useState(lastTwo[1]||periods[0]||"");
   const [viewMode,setViewMode]=useState("period"); // period | ytd
   const [tab,setTab]=useState("statement");
-  const [plOpen,setPlOpen]=useState({R:true,COGS:true,X:true});
+  const [plOpen,setPlOpen]=useState({R:true,COGS:true,NonOp:true,DC:true,SR:true,IDC:true});
   const togPL=id=>setPlOpen(p=>({...p,[id]:!p[id]}));
 
   const activeE=entities.filter(e=>e.active&&gf.entityIds.includes(e.id));
@@ -3842,9 +4268,9 @@ function PLModule({gf}){
   }
   function PLHead({label,color,id,open,onToggle}){
     return(
-      <tr onClick={onToggle} style={{cursor:"pointer",userSelect:"none"}}>
+      <tr onClick={onToggle} style={{cursor:onToggle?"pointer":"default",userSelect:"none"}}>
         <td colSpan={5} style={{padding:"10px 10px 5px",color:color||P.gold,fontSize:10,fontWeight:700,letterSpacing:1,background:P.surf2,borderTop:`1px solid ${P.border}`}}>
-          <span style={{marginRight:6,fontSize:12,display:"inline-block",width:14}}>{open?"∨":"›"}</span>
+          {onToggle&&<span style={{marginRight:6,fontSize:12,display:"inline-block",width:14,color:color||P.gold}}>{open?"∨":"›"}</span>}
           {label}
         </td>
       </tr>
@@ -3901,22 +4327,44 @@ function PLModule({gf}){
                 ))}
               </tr></thead>
               <tbody>
-                <PLHead label="REVENUE" color={P.green} id="R" open={plOpen.R} onToggle={()=>togPL("R")}/>
-                {plOpen.R&&pl2.rows.filter(r=>r.type==="R").map(r=>(
+                {/* ── Revenue ── */}
+                <PLHead label="Revenue" color={P.green} id="R" open={plOpen.R} onToggle={()=>togPL("R")}/>
+                {plOpen.R&&pl2.rows.filter(r=>r.group==="Revenue").map(r=>(
                   <PLRow key={r.code} label={r.name} value={r.value} prevVal={pl1.rows.find(x=>x.code===r.code)?.value} indent sub={r.isIC?"(IC)":null}/>
                 ))}
                 <PLTotal label="TOTAL REVENUE" value={pl2.totalRev} prevVal={pl1.totalRev} color={P.green}/>
 
-                {pl2.rows.filter(r=>r.type==="COGS").length>0&&<>
-                  <PLHead label="COST OF SALES" color={P.orange} id="COGS" open={plOpen.COGS} onToggle={()=>togPL("COGS")}/>
-                  {plOpen.COGS&&pl2.rows.filter(r=>r.type==="COGS").map(r=>(
-                    <PLRow key={r.code} label={r.name} value={r.value} prevVal={pl1.rows.find(x=>x.code===r.code)?.value} indent/>
-                  ))}
-                  <PLTotal label="GROSS PROFIT" value={pl2.grossProfit} prevVal={pl1.grossProfit} color={P.blue}/>
-                </>}
+                {/* ── Cost of Sales ── */}
+                <PLHead label="Cost of Sales" color={P.orange} id="COGS" open={plOpen.COGS} onToggle={()=>togPL("COGS")}/>
+                {plOpen.COGS&&pl2.rows.filter(r=>r.group==="Cost of Sales").map(r=>(
+                  <PLRow key={r.code} label={r.name} value={r.value} prevVal={pl1.rows.find(x=>x.code===r.code)?.value} indent/>
+                ))}
+                <PLTotal label="Gross Profit" value={pl2.grossProfit} prevVal={pl1.grossProfit} color={P.blue}/>
+                <tr><td colSpan={5} style={{padding:"4px 10px 8px",color:P.muted,fontSize:11,background:P.surf2}}>GP %&nbsp;&nbsp;<span style={{fontFamily:"monospace",color:P.gold}}>{pl2.totalRev>0?((pl2.grossProfit/pl2.totalRev)*100).toFixed(1)+"%":"—"}</span></td></tr>
 
-                <PLHead label="OPERATING EXPENSES" color={P.red} id="X" open={plOpen.X} onToggle={()=>togPL("X")}/>
-                {plOpen.X&&pl2.rows.filter(r=>r.type==="X").map(r=>(
+                {/* ── Non-Operating Income ── */}
+                <PLHead label="Total Non Operating Income/(Expenses)" color={P.sub} id="NonOp" open={plOpen.NonOp} onToggle={()=>togPL("NonOp")}/>
+                {plOpen.NonOp&&pl2.rows.filter(r=>r.group==="Non-Operating").map(r=>(
+                  <PLRow key={r.code} label={r.name} value={r.value} prevVal={pl1.rows.find(x=>x.code===r.code)?.value} indent/>
+                ))}
+
+                {/* ── Total Direct Cost (DC) ── */}
+                <PLHead label="Total Direct Cost (DC)" color={P.red} id="DC" open={plOpen.DC} onToggle={()=>togPL("DC")}/>
+                {plOpen.DC&&pl2.rows.filter(r=>r.group==="Direct Cost").map(r=>(
+                  <PLRow key={r.code} label={r.name} value={r.value} prevVal={pl1.rows.find(x=>x.code===r.code)?.value} indent/>
+                ))}
+                <PLTotal label="TOTAL DIRECT COST" value={pl2.rows.filter(r=>r.group==="Direct Cost").reduce((s,r)=>s+r.value,0)} prevVal={pl1.rows.filter(r=>r.group==="Direct Cost").reduce((s,r)=>s+r.value,0)} color={P.red}/>
+
+                {/* ── Total Staff Reward ── */}
+                <PLHead label="Total Staff Reward" color={P.purple} id="SR" open={plOpen.SR} onToggle={()=>togPL("SR")}/>
+                {plOpen.SR&&pl2.rows.filter(r=>r.group==="Staff Reward").map(r=>(
+                  <PLRow key={r.code} label={r.name} value={r.value} prevVal={pl1.rows.find(x=>x.code===r.code)?.value} indent/>
+                ))}
+                <PLTotal label="TOTAL STAFF REWARD" value={pl2.rows.filter(r=>r.group==="Staff Reward").reduce((s,r)=>s+r.value,0)} prevVal={pl1.rows.filter(r=>r.group==="Staff Reward").reduce((s,r)=>s+r.value,0)} color={P.purple}/>
+
+                {/* ── Total Indirect Cost (IDC) ── */}
+                <PLHead label="Total Indirect Cost (IDC)" color={P.orange} id="IDC" open={plOpen.IDC} onToggle={()=>togPL("IDC")}/>
+                {plOpen.IDC&&pl2.rows.filter(r=>r.group==="Indirect Cost").map(r=>(
                   <PLRow key={r.code} label={r.name} value={r.value} prevVal={pl1.rows.find(x=>x.code===r.code)?.value} indent sub={r.isIC?"(IC)":null}/>
                 ))}
                 <PLTotal label="TOTAL OPEX" value={pl2.totalExp} prevVal={pl1.totalExp} color={P.orange}/>
@@ -4189,9 +4637,9 @@ function BSModule({gf}){
   }
   function BSHead({label,color,open,onToggle}){
     return(
-      <tr onClick={onToggle} style={{cursor:"pointer",userSelect:"none"}}>
+      <tr onClick={onToggle} style={{cursor:onToggle?"pointer":"default",userSelect:"none"}}>
         <td colSpan={4} style={{padding:"10px 10px 5px",color:color||P.gold,fontSize:10,fontWeight:700,letterSpacing:1,background:P.surf2,borderTop:`1px solid ${P.border}`}}>
-          <span style={{marginRight:6,fontSize:12,display:"inline-block",width:14}}>{open?"∨":"›"}</span>
+          {onToggle&&<span style={{marginRight:6,fontSize:12,display:"inline-block",width:14,color:color||P.gold}}>{open?"∨":"›"}</span>}
           {label}
         </td>
       </tr>
@@ -5632,6 +6080,295 @@ function AuthedApp({session,onLogout}){
 // ══════════════════════════════════════════════════════════════════
 
 // ══════════════════════════════════════════════════════════════════
+// PLSegmental + BalanceSheetSegmental — collapsible report modules
+// ══════════════════════════════════════════════════════════════════
+
+const PL_SEG_DATA = {
+  year: "FY 2025",
+  columns: ["ALL", "COMMUNICATION", "OTHER"],
+  sections: [
+    { id:"seg_rev", label:"Revenue", values:[523489000,16234000,0], collapsible:true, children:[
+      { label:"Sales Revenue - Domestic", values:[371910000,9350000,0] },
+      { label:"Sales Revenue - Export",   values:[150970000,6800000,0] },
+      { label:"Intercompany Revenue",     values:[609000,84000,0] },
+    ]},
+    { id:"seg_cos", label:"Cost of Sales", values:[188260000,6732000,0], collapsible:true, children:[
+      { label:"Direct Materials", values:[129860000,4260000,0] },
+      { label:"Direct Labour",    values:[58400000,2472000,0] },
+    ]},
+    { id:"seg_gp",    label:"Gross Profit",  values:[335229000,9502000,0], type:"subtotal" },
+    { id:"seg_gppct", label:"GP %",          values:[0.64,0.585,0],        type:"metric", format:"pct" },
+    { id:"seg_nonop", label:"Total Non Operating Income / (Expenses)", values:[0,0,0], collapsible:true, children:[] },
+    { id:"seg_dc", label:"Total Direct Cost (DC)", values:[39592000,1739500,0], collapsible:true, children:[
+      { label:"Staff Cost - Direct",   values:[19495000,847000,0] },
+      { label:"Staff Cost - Indirect", values:[11039000,500500,0] },
+      { label:"Marketing & Selling",   values:[9058000,392000,0] },
+      { label:"Travelling Expenses",   values:[0,0,0] },
+    ]},
+    { id:"seg_sr", label:"Total Staff Reward", values:[0,0,0], collapsible:true, children:[
+      { label:"Manning Cost-Bonus",        values:[0,0,0] },
+      { label:"Manning Cost-Incentive",    values:[0,0,0] },
+      { label:"Manning Cost-Staff Reward", values:[0,0,0] },
+    ]},
+    { id:"seg_idc", label:"Total Indirect Cost (IDC)", values:[22943000,1296500,0], collapsible:true, children:[
+      { label:"General & Admin",                   values:[14882000,1018500,0] },
+      { label:"Financing Expenses",                values:[0,0,0] },
+      { label:"Share of Corp Manning costs",       values:[0,0,0] },
+      { label:"Share of Corp Manning costs-Bonus", values:[0,0,0] },
+      { label:"Depreciation Expense",              values:[8061000,278000,0] },
+      { label:"Interest Expense",                  values:[0,0,0] },
+    ]},
+    { id:"seg_opex", label:"Total Operating Expenses", values:[62535000,3036000,0], type:"subtotal" },
+    { id:"seg_pbt",  label:"Profit Before Tax",        values:[272694000,6466000,0], type:"total" },
+  ],
+};
+
+function fmtSegVal(v, fmt) {
+  if (fmt === "pct") return v === 0 ? "0.0%" : (v * 100).toFixed(1) + "%";
+  return v === 0 ? "0" : v.toLocaleString("en-US");
+}
+
+function PLSegmental() {
+  const init = {};
+  PL_SEG_DATA.sections.forEach(s => { if (s.collapsible) init[s.id] = !!(s.children && s.children.length); });
+  const [exp, setExp] = useState(init);
+  const tog = id => setExp(prev => ({ ...prev, [id]: !prev[id] }));
+  const rowBg = type => type==="total" ? P.surf3 : type==="subtotal" ? P.surf2 : P.surface;
+
+  return (
+    <div style={{ background: P.bg, color: P.text, fontFamily: "'DM Sans','Segoe UI',sans-serif" }}>
+      <div style={{ padding: "20px 20px 10px", borderBottom: `1px solid ${P.border}` }}>
+        <div style={{ fontSize: 16, fontWeight: 700, color: P.text, marginBottom: 4 }}>
+          <span style={{ color: P.mag }}>↗ </span>P&amp;L by Segmental — {PL_SEG_DATA.year}
+        </div>
+        <div style={{ fontSize: 12, color: P.muted }}>P&amp;L consolidated by business segments. Click rows to expand.</div>
+      </div>
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
+          <thead>
+            <tr style={{ background: P.surface, borderBottom: `2px solid ${P.border}` }}>
+              <th style={{ padding: "8px 14px", textAlign: "left", color: P.muted, fontSize: 11, fontWeight: 600, letterSpacing: "0.05em", width: "55%" }}>DESCRIPTION</th>
+              {PL_SEG_DATA.columns.map(c => (
+                <th key={c} style={{ padding: "8px 14px", textAlign: "right", color: P.muted, fontSize: 11, fontWeight: 600, letterSpacing: "0.05em" }}>{c}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {PL_SEG_DATA.sections.map(s => {
+              const type = s.type || (s.collapsible ? "section" : "line");
+              const isOpen = exp[s.id];
+              const bold = type === "subtotal" || type === "total" || type === "section";
+              const rows = [];
+              rows.push(
+                <tr key={s.id}
+                  style={{ background: rowBg(type), borderBottom: `1px solid ${P.border}`, cursor: s.collapsible ? "pointer" : "default" }}
+                  onClick={s.collapsible ? () => tog(s.id) : undefined}>
+                  <td style={{ padding: "8px 14px" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                      {s.collapsible && (
+                        <span style={{ color: P.mag, fontWeight: 700, fontSize: 14, minWidth: 14 }}>
+                          {isOpen ? "∨" : "›"}
+                        </span>
+                      )}
+                      <span style={{ fontWeight: bold ? 700 : 400, paddingLeft: s.collapsible ? 0 : 20, color: type==="metric" ? P.muted : P.text }}>
+                        {s.label}
+                      </span>
+                    </div>
+                  </td>
+                  {s.values.map((v, i) => (
+                    <td key={i} style={{ padding: "8px 14px", textAlign: "right", fontVariantNumeric: "tabular-nums", fontWeight: bold ? 700 : 400, color: type==="metric" ? P.muted : bold ? P.gold : P.text }}>
+                      {fmtSegVal(v, s.format)}
+                    </td>
+                  ))}
+                </tr>
+              );
+              if (s.collapsible && isOpen) {
+                s.children.forEach((child, ci) => {
+                  rows.push(
+                    <tr key={`${s.id}-c${ci}`} style={{ background: P.bg2, borderBottom: `1px solid ${P.border}` }}>
+                      <td style={{ padding: "6px 14px 6px 38px", color: P.sub }}>{child.label}</td>
+                      {child.values.map((v, i) => (
+                        <td key={i} style={{ padding: "6px 14px", textAlign: "right", fontVariantNumeric: "tabular-nums", color: P.sub }}>
+                          {fmtSegVal(v)}
+                        </td>
+                      ))}
+                    </tr>
+                  );
+                });
+              }
+              return rows;
+            })}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+const BS_SEG_DATA = {
+  year: "FY 2025",
+  assets: {
+    sections: [
+      { id:"bss_nca", label:"Non-Current Assets", total:84564000, collapsible:true, children:[
+        { label:"Property Plant and Equipment", value:3675000 },
+        { label:"Property Plant and Equipment", value:6150000 },
+        { label:"Property Plant and Equipment", value:72000000 },
+        { label:"Accumulated Depreciation",     value:2550000 },
+        { label:"Accumulated Depreciation",     value:135000 },
+        { label:"Accumulated Depreciation",     value:54000 },
+      ]},
+      { id:"bss_ca", label:"Current Assets", total:634521000, collapsible:true, children:[
+        { label:"Cash and Bank - SGD",                value:12758000 },
+        { label:"Cash and Bank - PHP",                value:412100000 },
+        { label:"Cash and Bank - MYR",                value:24680000 },
+        { label:"Cash and Bank - USD",                value:0 },
+        { label:"Accounts Receivable - Trade",        value:8120000 },
+        { label:"Accounts Receivable - Trade",        value:162200000 },
+        { label:"Accounts Receivable - Trade",        value:12920000 },
+        { label:"Accounts Receivable - Intercompany", value:84000 },
+        { label:"Accounts Receivable - Intercompany", value:1659000 },
+        { label:"Prepaid Expenses",                   value:0 },
+      ]},
+    ],
+    total: 719085000, totalLabel: "Total Assets",
+  },
+  el: {
+    sections: [
+      { id:"bss_cl", label:"Current Liabilities", total:212972000, collapsible:true, children:[
+        { label:"Accounts Payable - Trade",        value:5430000 },
+        { label:"Accounts Payable - Trade",        value:133100000 },
+        { label:"Accounts Payable - Trade",        value:10560000 },
+        { label:"Accounts Payable - Intercompany", value:1400000 },
+        { label:"Accounts Payable - Intercompany", value:343000 },
+        { label:"Accrued Expenses",                value:2632000 },
+        { label:"Accrued Expenses",                value:3717000 },
+        { label:"Accrued Expenses",                value:55790000 },
+        { label:"Tax Payable",                     value:0 },
+      ]},
+      { id:"bss_ncl", label:"Non-Current Liabilities", total:36345000, collapsible:true, children:[] },
+    ],
+    totalLiabilities: 249317000, totalLiabilitiesLabel: "Total Liabilities",
+    netCurrentAssets: 421549000,
+    equity: { id:"bss_eq", label:"Equity", total:185130000, collapsible:true, children:[
+      { label:"Share Capital",     value:11250000 },
+      { label:"Share Capital",     value:7350000 },
+      { label:"Share Capital",     value:166500000 },
+      { label:"Retained Earnings", value:0 },
+      { label:"Retained Earnings", value:0 },
+      { label:"Retained Earnings", value:0 },
+    ]},
+    total: 434447000, totalLabel: "Total Equity & Liabilities",
+    balanced: false,
+  },
+};
+
+function numFmt(v) { return v === 0 ? "0" : v.toLocaleString("en-US"); }
+
+function BSSection({ section, exp, tog }) {
+  const isOpen = exp[section.id];
+  return (
+    <>
+      <div
+        onClick={section.collapsible ? () => tog(section.id) : undefined}
+        style={{ display:"flex", justifyContent:"space-between", alignItems:"center",
+          padding:"8px 0", borderBottom:`1px solid ${P.border}`,
+          cursor: section.collapsible ? "pointer" : "default" }}>
+        <div style={{ display:"flex", alignItems:"center", gap:6 }}>
+          {section.collapsible && (
+            <span style={{ color:P.mag, fontWeight:700, minWidth:14, fontSize:14 }}>
+              {isOpen ? "∨" : "›"}
+            </span>
+          )}
+          <span style={{ fontWeight:600, color:P.text }}>{section.label}</span>
+        </div>
+        <span style={{ fontWeight:600, color:P.gold, fontVariantNumeric:"tabular-nums" }}>
+          {numFmt(section.total)}
+        </span>
+      </div>
+      {section.collapsible && isOpen && section.children.map((c, i) => (
+        <div key={i} style={{ display:"flex", justifyContent:"space-between",
+          padding:"5px 0 5px 34px", background:P.bg2, borderBottom:`1px solid ${P.border}` }}>
+          <span style={{ color:P.sub, fontSize:12 }}>{c.label}</span>
+          <span style={{ color:P.sub, fontSize:12, fontVariantNumeric:"tabular-nums" }}>{numFmt(c.value)}</span>
+        </div>
+      ))}
+    </>
+  );
+}
+
+function BalanceSheetSegmental() {
+  const allSecs = [...BS_SEG_DATA.assets.sections, ...BS_SEG_DATA.el.sections, BS_SEG_DATA.el.equity];
+  const init = {};
+  allSecs.forEach(s => { if (s.collapsible) init[s.id] = !!(s.children && s.children.length); });
+  const [exp, setExp] = useState(init);
+  const tog = id => setExp(prev => ({ ...prev, [id]: !prev[id] }));
+  const el = BS_SEG_DATA.el;
+
+  const GrandRow = ({ label, value }) => (
+    <div style={{ display:"flex", justifyContent:"space-between", padding:"10px 0",
+      borderTop:`2px solid ${P.border}`, marginTop:8, background:P.surf2 }}>
+      <span style={{ fontWeight:700, color:P.text }}>{label}</span>
+      <span style={{ fontWeight:700, color:P.gold, fontVariantNumeric:"tabular-nums" }}>{numFmt(value)}</span>
+    </div>
+  );
+
+  const SubRow = ({ label, value }) => (
+    <div style={{ display:"flex", justifyContent:"space-between", padding:"8px 0",
+      borderTop:`1px solid ${P.border}`, background:P.surf2, marginTop:4 }}>
+      <span style={{ fontWeight:700, color:P.text }}>{label}</span>
+      <span style={{ fontWeight:700, color:P.gold, fontVariantNumeric:"tabular-nums" }}>{numFmt(value)}</span>
+    </div>
+  );
+
+  const ColHdr = () => (
+    <div style={{ display:"flex", justifyContent:"space-between", fontSize:11, color:P.muted,
+      fontWeight:600, letterSpacing:"0.05em", padding:"5px 0",
+      borderBottom:`1px solid ${P.border}`, marginBottom:4 }}>
+      <span>DESCRIPTION</span><span>AMOUNT</span>
+    </div>
+  );
+
+  return (
+    <div style={{ background:P.bg, color:P.text, fontFamily:"'DM Sans','Segoe UI',sans-serif" }}>
+      <div style={{ padding:"20px 20px 10px", borderBottom:`1px solid ${P.border}` }}>
+        <div style={{ fontSize:16, fontWeight:700, color:P.text, marginBottom:4 }}>
+          <span style={{ color:P.mag }}>↗ </span>Balance Sheet — {BS_SEG_DATA.year}
+        </div>
+        <div style={{ fontSize:12, color:P.muted }}>Consolidated Balance Sheet. Click sections to expand.</div>
+      </div>
+      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", alignItems:"start", fontSize:13 }}>
+        <div style={{ padding:"16px 20px 32px" }}>
+          <div style={{ fontSize:14, fontWeight:700, color:P.text, marginBottom:10, paddingBottom:6, borderBottom:`2px solid ${P.border}` }}>Assets</div>
+          <ColHdr/>
+          {BS_SEG_DATA.assets.sections.map(s => <BSSection key={s.id} section={s} exp={exp} tog={tog}/>)}
+          <GrandRow label={BS_SEG_DATA.assets.totalLabel} value={BS_SEG_DATA.assets.total}/>
+        </div>
+        <div style={{ padding:"16px 20px 32px", borderLeft:`1px solid ${P.border}` }}>
+          <div style={{ fontSize:14, fontWeight:700, color:P.text, marginBottom:10, paddingBottom:6, borderBottom:`2px solid ${P.border}` }}>Equity &amp; Liabilities</div>
+          <ColHdr/>
+          {el.sections.map(s => <BSSection key={s.id} section={s} exp={exp} tog={tog}/>)}
+          <SubRow label={el.totalLiabilitiesLabel} value={el.totalLiabilities}/>
+          <div style={{ display:"flex", justifyContent:"space-between", padding:"7px 10px",
+            color:P.gold, fontWeight:500, background:P.surf3, borderRadius:4,
+            margin:"6px 0", fontStyle:"italic", fontSize:13 }}>
+            <span>Net Current Assets</span>
+            <span style={{ fontVariantNumeric:"tabular-nums" }}>{numFmt(el.netCurrentAssets)}</span>
+          </div>
+          <BSSection section={el.equity} exp={exp} tog={tog}/>
+          <GrandRow label={el.totalLabel} value={el.total}/>
+          {!el.balanced && (
+            <div style={{ marginTop:16, display:"inline-block", padding:"5px 12px",
+              background:`${P.red}20`, border:`1px solid ${P.red}40`,
+              borderRadius:4, color:P.red, fontSize:12, fontWeight:500 }}>
+              ⚠ WARNING: Balance Sheet Not Balanced
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function FinFlowRoot(){
   // Read ?user= from URL for shareable links
   const urlUser=useMemo(()=>{
