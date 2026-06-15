@@ -1,3 +1,5 @@
+import PLSegmental from "./modules/PLSegmental";
+import BalanceSheet from "./modules/BalanceSheet";
 import { useState, useRef, useMemo, useCallback, createContext, useContext } from "react";
 import { CaptureFab, CaptureButton } from "./components/CaptureModal.jsx";
 import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from "recharts";
