@@ -913,7 +913,7 @@ const STATUS_CLR    = { Outstanding:P.gold,Overdue:P.red,Paid:P.green,Disputed:P
 const BUCKET_DEF    = ["Current","1–30","31–60","61–90","91–120","120+"];
 const BUCKET_CLR    = [P.green,P.gold,P.orange,"#F97316",P.red,"#9F1239"];
 const TODAY         = new Date("2025-01-15");
-const STORAGE_KEY   = "finflow_v5";
+const STORAGE_KEY   = "finflow_v6";
 
 // ── Default budget data (by entity × account × period) ───────────
 const DEFAULT_BUDGET = MOCK_BUDGET;
