@@ -959,7 +959,6 @@ const DEFAULT_COA = [
   { code:"5300", name:"Depreciation",               class:"X", group:"Expenses",           icEligible:false, fxMethod:"average",   active:false },
   { code:"5400", name:"General & Admin",            class:"X", group:"Expenses",           icEligible:false, fxMethod:"average",   active:false },
   { code:"5500", name:"Finance Costs",              class:"X", group:"Expenses",           icEligible:false, fxMethod:"average",   active:false },
-  // ── Granular P&L accounts ────────────────────────────────────────
   { code:"4001", name:"Sales Revenue - Domestic",          class:"R", group:"Revenue",       icEligible:false, fxMethod:"average", active:true },
   { code:"4002", name:"Sales Revenue - Export",            class:"R", group:"Revenue",       icEligible:false, fxMethod:"average", active:true },
   { code:"4210", name:"Interest Income",                   class:"R", group:"Non-Operating", icEligible:false, fxMethod:"average", active:true },
@@ -4191,54 +4190,45 @@ function PLModule({gf}){
   function buildPL(forPeriods,entityIds){
     const rows=[];
     let totalRev=0,totalCOGS=0,totalExp=0;
-
-    // Revenue accounts (class R, active) — credit-normal
-    coa.filter(a=>a.class==="R"&&a.active&&a.group!=="Non-Operating").forEach(acct=>{
-      const{dr,cr}=getGL(acct.code,forPeriods,entityIds);
+    // Revenue (class R, not Non-Operating)
+    coa.filter(a=>a.class==="R"&&a.active&&a.group!=="Non-Operating").forEach(a=>{
+      const{dr,cr}=getGL(a.code,forPeriods,entityIds);
       const val=cr-dr;
-      if(Math.abs(val)>0.01){rows.push({type:"R",code:acct.code,name:acct.name,group:acct.group||"Revenue",value:val,isIC:acct.icEligible});totalRev+=val;}
+      if(Math.abs(val)>0.01){rows.push({type:"R",code:a.code,name:a.name,group:a.group,value:val,isIC:a.icEligible});totalRev+=val;}
     });
-
-    // Non-operating income (class R, group Non-Operating)
-    coa.filter(a=>a.class==="R"&&a.active&&a.group==="Non-Operating").forEach(acct=>{
-      const{dr,cr}=getGL(acct.code,forPeriods,entityIds);
+    // Non-operating income
+    coa.filter(a=>a.class==="R"&&a.active&&a.group==="Non-Operating").forEach(a=>{
+      const{dr,cr}=getGL(a.code,forPeriods,entityIds);
       const val=cr-dr;
-      if(Math.abs(val)>0.01){rows.push({type:"NonOp",code:acct.code,name:acct.name,group:"Non-Operating",value:val,isIC:acct.icEligible});}
+      if(Math.abs(val)>0.01){rows.push({type:"NonOp",code:a.code,name:a.name,group:a.group,value:val,isIC:a.icEligible});}
     });
-
-    // COGS (group "Cost of Sales")
-    coa.filter(a=>a.class==="X"&&a.active&&a.group==="Cost of Sales").forEach(acct=>{
-      const{dr,cr}=getGL(acct.code,forPeriods,entityIds);
+    // COGS
+    coa.filter(a=>a.class==="X"&&a.active&&a.group==="Cost of Sales").forEach(a=>{
+      const{dr,cr}=getGL(a.code,forPeriods,entityIds);
       const val=dr-cr;
-      if(Math.abs(val)>0.01){rows.push({type:"COGS",code:acct.code,name:acct.name,group:"Cost of Sales",value:val,isIC:acct.icEligible});totalCOGS+=val;}
+      if(Math.abs(val)>0.01){rows.push({type:"COGS",code:a.code,name:a.name,group:a.group,value:val,isIC:a.icEligible});totalCOGS+=val;}
     });
-
     const grossProfit=totalRev-totalCOGS;
-
-    // Direct Cost (group "Direct Cost")
-    coa.filter(a=>a.class==="X"&&a.active&&a.group==="Direct Cost").forEach(acct=>{
-      const{dr,cr}=getGL(acct.code,forPeriods,entityIds);
+    // Direct Cost
+    coa.filter(a=>a.class==="X"&&a.active&&a.group==="Direct Cost").forEach(a=>{
+      const{dr,cr}=getGL(a.code,forPeriods,entityIds);
       const val=dr-cr;
-      if(Math.abs(val)>0.01){rows.push({type:"DC",code:acct.code,name:acct.name,group:"Direct Cost",value:val,isIC:acct.icEligible});totalExp+=val;}
+      if(Math.abs(val)>0.01){rows.push({type:"DC",code:a.code,name:a.name,group:a.group,value:val,isIC:a.icEligible});totalExp+=val;}
     });
-
-    // Staff Reward (group "Staff Reward")
-    coa.filter(a=>a.class==="X"&&a.active&&a.group==="Staff Reward").forEach(acct=>{
-      const{dr,cr}=getGL(acct.code,forPeriods,entityIds);
+    // Staff Reward
+    coa.filter(a=>a.class==="X"&&a.active&&a.group==="Staff Reward").forEach(a=>{
+      const{dr,cr}=getGL(a.code,forPeriods,entityIds);
       const val=dr-cr;
-      if(Math.abs(val)>0.01){rows.push({type:"SR",code:acct.code,name:acct.name,group:"Staff Reward",value:val,isIC:acct.icEligible});totalExp+=val;}
+      if(Math.abs(val)>0.01){rows.push({type:"SR",code:a.code,name:a.name,group:a.group,value:val,isIC:a.icEligible});totalExp+=val;}
     });
-
-    // Indirect Cost / Other Opex (all other X accounts)
-    coa.filter(a=>a.class==="X"&&a.active&&!["Cost of Sales","Direct Cost","Staff Reward"].includes(a.group)).forEach(acct=>{
-      const{dr,cr}=getGL(acct.code,forPeriods,entityIds);
+    // Indirect Cost / other opex
+    coa.filter(a=>a.class==="X"&&a.active&&!["Cost of Sales","Direct Cost","Staff Reward"].includes(a.group)).forEach(a=>{
+      const{dr,cr}=getGL(a.code,forPeriods,entityIds);
       const val=dr-cr;
-      if(Math.abs(val)>0.01){rows.push({type:"IDC",code:acct.code,name:acct.name,group:a.group||"Indirect Cost",value:val,isIC:acct.icEligible});totalExp+=val;}
+      if(Math.abs(val)>0.01){rows.push({type:"IDC",code:a.code,name:a.name,group:a.group,value:val,isIC:a.icEligible});totalExp+=val;}
     });
-
     const netProfit=grossProfit-totalExp;
-    const ebitda=netProfit;
-    return{rows,totalRev,totalCOGS,grossProfit,totalExp,ebitda,netProfit};
+    return{rows,totalRev,totalCOGS,grossProfit,totalExp,ebitda:netProfit,netProfit};
   }
 
   const ytdPeriods=useMemo(()=>{const idx=periods.indexOf(cP2);return idx>=0?periods.slice(0,idx+1):[];}, [periods,cP2]);
@@ -4278,14 +4268,10 @@ function PLModule({gf}){
     );
   }
   function PLHead({label,color,open,onToggle}){
-    return(
-      <tr onClick={onToggle} style={{cursor:onToggle?"pointer":"default",userSelect:"none"}}>
-        <td colSpan={5} style={{padding:"10px 10px 5px",color:color||P.gold,fontSize:10,fontWeight:700,letterSpacing:1,background:P.surf2,borderTop:`1px solid ${P.border}`}}>
-          {onToggle&&<span style={{marginRight:6,fontSize:12,display:"inline-block",width:14,color:color||P.gold}}>{open?"∨":"›"}</span>}
-          {label}
-        </td>
-      </tr>
-    );
+    return(<tr onClick={onToggle} style={{cursor:onToggle?"pointer":"default",userSelect:"none"}}>
+      <td colSpan={5} style={{padding:"10px 10px 5px",color:color||P.gold,fontSize:10,fontWeight:700,letterSpacing:1,background:P.surf2,borderTop:`1px solid ${P.border}`}}>
+        {onToggle&&<span style={{marginRight:6,fontSize:12,display:"inline-block",width:14}}>{open?"∨":"›"}</span>}{label}
+      </td></tr>);
   }
   function PLTotal({label,value,prevVal,color}){
     const chg=prevVal!=null&&prevVal!==0?((value-prevVal)/Math.abs(prevVal)*100):null;
@@ -4338,42 +4324,31 @@ function PLModule({gf}){
                 ))}
               </tr></thead>
               <tbody>
-                {/* Revenue */}
                 <PLHead label="Revenue" color={P.green} open={plOpen.R} onToggle={()=>togPL("R")}/>
                 {plOpen.R&&pl2.rows.filter(r=>r.type==="R").map(r=>(
                   <PLRow key={r.code} label={r.name} value={r.value} prevVal={pl1.rows.find(x=>x.code===r.code)?.value} indent sub={r.isIC?"(IC)":null}/>
                 ))}
                 <PLTotal label="TOTAL REVENUE" value={pl2.totalRev} prevVal={pl1.totalRev} color={P.green}/>
-
-                {/* Cost of Sales */}
                 <PLHead label="Cost of Sales" color={P.orange} open={plOpen.COGS} onToggle={()=>togPL("COGS")}/>
                 {plOpen.COGS&&pl2.rows.filter(r=>r.type==="COGS").map(r=>(
                   <PLRow key={r.code} label={r.name} value={r.value} prevVal={pl1.rows.find(x=>x.code===r.code)?.value} indent/>
                 ))}
                 <PLTotal label="Gross Profit" value={pl2.grossProfit} prevVal={pl1.grossProfit} color={P.blue}/>
                 <tr><td colSpan={5} style={{padding:"4px 10px 8px",color:P.muted,fontSize:11,background:P.surf2}}>GP %&nbsp;&nbsp;<span style={{fontFamily:"monospace",color:P.gold}}>{pl2.totalRev>0?((pl2.grossProfit/pl2.totalRev)*100).toFixed(1)+"%":"—"}</span></td></tr>
-
-                {/* Non-Operating Income */}
                 <PLHead label="Total Non Operating Income/(Expenses)" color={P.sub} open={plOpen.NonOp} onToggle={()=>togPL("NonOp")}/>
                 {plOpen.NonOp&&pl2.rows.filter(r=>r.type==="NonOp").map(r=>(
                   <PLRow key={r.code} label={r.name} value={r.value} prevVal={pl1.rows.find(x=>x.code===r.code)?.value} indent/>
                 ))}
-
-                {/* Direct Cost */}
                 <PLHead label="Total Direct Cost (DC)" color={P.red} open={plOpen.DC} onToggle={()=>togPL("DC")}/>
                 {plOpen.DC&&pl2.rows.filter(r=>r.type==="DC").map(r=>(
                   <PLRow key={r.code} label={r.name} value={r.value} prevVal={pl1.rows.find(x=>x.code===r.code)?.value} indent/>
                 ))}
                 <PLTotal label="TOTAL DIRECT COST" value={pl2.rows.filter(r=>r.type==="DC").reduce((s,r)=>s+r.value,0)} prevVal={pl1.rows.filter(r=>r.type==="DC").reduce((s,r)=>s+r.value,0)} color={P.red}/>
-
-                {/* Staff Reward */}
                 <PLHead label="Total Staff Reward" color={P.purple} open={plOpen.SR} onToggle={()=>togPL("SR")}/>
                 {plOpen.SR&&pl2.rows.filter(r=>r.type==="SR").map(r=>(
                   <PLRow key={r.code} label={r.name} value={r.value} prevVal={pl1.rows.find(x=>x.code===r.code)?.value} indent/>
                 ))}
                 <PLTotal label="TOTAL STAFF REWARD" value={pl2.rows.filter(r=>r.type==="SR").reduce((s,r)=>s+r.value,0)} prevVal={pl1.rows.filter(r=>r.type==="SR").reduce((s,r)=>s+r.value,0)} color={P.purple}/>
-
-                {/* Indirect Cost */}
                 <PLHead label="Total Indirect Cost (IDC)" color={P.orange} open={plOpen.IDC} onToggle={()=>togPL("IDC")}/>
                 {plOpen.IDC&&pl2.rows.filter(r=>r.type==="IDC").map(r=>(
                   <PLRow key={r.code} label={r.name} value={r.value} prevVal={pl1.rows.find(x=>x.code===r.code)?.value} indent sub={r.isIC?"(IC)":null}/>
@@ -4647,14 +4622,10 @@ function BSModule({gf}){
     );
   }
   function BSHead({label,color,open,onToggle}){
-    return(
-      <tr onClick={onToggle} style={{cursor:onToggle?"pointer":"default",userSelect:"none"}}>
-        <td colSpan={4} style={{padding:"10px 10px 5px",color:color||P.gold,fontSize:10,fontWeight:700,letterSpacing:1,background:P.surf2,borderTop:`1px solid ${P.border}`}}>
-          {onToggle&&<span style={{marginRight:6,fontSize:12,display:"inline-block",width:14,color:color||P.gold}}>{open?"∨":"›"}</span>}
-          {label}
-        </td>
-      </tr>
-    );
+    return(<tr onClick={onToggle} style={{cursor:onToggle?"pointer":"default",userSelect:"none"}}>
+      <td colSpan={4} style={{padding:"10px 10px 5px",color:color||P.gold,fontSize:10,fontWeight:700,letterSpacing:1,background:P.surf2,borderTop:`1px solid ${P.border}`}}>
+        {onToggle&&<span style={{marginRight:6,fontSize:12,display:"inline-block",width:14}}>{open?"∨":"›"}</span>}{label}
+      </td></tr>);
   }
   function BSTotal({label,value,prevVal,color}){
     const chg=prevVal!=null&&prevVal!==0?((value-prevVal)/Math.abs(prevVal)*100):null;
