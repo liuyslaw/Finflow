@@ -3123,8 +3123,6 @@ const NAV=[
   {id:"wc",      icon:"⟳",  label:"Working Capital",             group:"FinFlow Lite", tier:"T3"},
   {id:"sales",   icon:"◉",  label:"Sales",                       group:"FinFlow Lite", tier:"T3"},
   // FinFlow Pro — close & consolidation
-  {id:"pl-segmental",  icon:"▤", label:"P&L by Segmental", group:"FinFlow Pro", tier:"T4"},
-{id:"balance-sheet-v2", icon:"▥", label:"Balance Sheet (New)", group:"FinFlow Pro", tier:"T4"},
   {id:"close",   icon:"☑",  label:"Month-End Close",             group:"FinFlow Pro",  tier:"T4"},
   {id:"forecast",icon:"📅",  label:"13-Week Forecast",            group:"FinFlow Pro",  tier:"T4"},
   {id:"cashflow",icon:"⇌",  label:"Cash Flow",                   group:"FinFlow Pro",  tier:"T4"},
@@ -3219,8 +3217,6 @@ function FinFlowApp(){
             {active==="ic"       &&<ICModule gf={gf}/>}
             {active==="pl"       &&<PLModule gf={gf}/>}
             {active==="bs"       &&<BSModule gf={gf}/>}
-            {active==="pl-segmental"    && <PLSegmental/>}
-            {active==="balance-sheet-v2" && <BalanceSheet/>}
             {active==="budget"   &&<BudgetModule gf={gf}/>}
             {active==="cashflow"  &&<CashFlowModule gf={gf}/>}
             {active==="wc"       &&<WorkingCapitalModule gf={gf}/>}
