@@ -5634,8 +5634,8 @@ const PL_SEG_DATA = {
       { label:"Direct Materials", values:[129860000,4260000,0] },
       { label:"Direct Labour",    values:[58400000,2472000,0] },
     ]},
-    { id:"seg_gp",    label:"Gross Profit",             values:[335229000,9502000,0], type:"subtotal" },
-    { id:"seg_gppct", label:"GP %",                     values:[0.64,0.585,0],        type:"metric", format:"pct" },
+    { id:"seg_gp",    label:"Gross Profit",  values:[335229000,9502000,0], type:"subtotal" },
+    { id:"seg_gppct", label:"GP %",          values:[0.64,0.585,0],        type:"metric", format:"pct" },
     { id:"seg_nonop", label:"Total Non Operating Income / (Expenses)", values:[0,0,0], collapsible:true, children:[] },
     { id:"seg_dc", label:"Total Direct Cost (DC)", values:[39592000,1739500,0], collapsible:true, children:[
       { label:"Staff Cost - Direct",   values:[19495000,847000,0] },
@@ -5661,33 +5661,34 @@ const PL_SEG_DATA = {
   ],
 };
 
-function fmtSegVal(val, format) {
-  if (format === "pct") return val === 0 ? "0.0%" : (val * 100).toFixed(1) + "%";
-  return val === 0 ? "0" : val.toLocaleString("en-US");
+function fmtSegVal(v, fmt) {
+  if (fmt === "pct") return v === 0 ? "0.0%" : (v * 100).toFixed(1) + "%";
+  return v === 0 ? "0" : v.toLocaleString("en-US");
 }
 
 function PLSegmental() {
   const init = {};
-  PL_SEG_DATA.sections.forEach(s => { if (s.collapsible) init[s.id] = s.children && s.children.length > 0; });
+  PL_SEG_DATA.sections.forEach(s => { if (s.collapsible) init[s.id] = !!(s.children && s.children.length); });
   const [exp, setExp] = useState(init);
-  const toggle = id => setExp(p => ({ ...p, [id]: !p[id] }));
+  const tog = id => setExp(p => ({ ...p, [id]: !p[id] }));
+  const cols = PL_SEG_DATA.columns;
+
+  const rowBg = type => type==="total" ? P.surf3 : type==="subtotal" ? P.surf2 : type==="metric" ? P.surf2 : P.surface;
 
   return (
-    <div style={{ background: P.bg, minHeight: "100vh", color: P.text, fontFamily: "'DM Sans','Segoe UI',sans-serif" }}>
-      <div style={{ padding: "1.25rem 1.25rem 0.6rem", borderBottom: `1px solid ${P.border}` }}>
-        <div style={{ fontSize: "15px", fontWeight: 700, display: "flex", alignItems: "center", gap: "0.4rem", marginBottom: "0.2rem" }}>
-          <span style={{ color: P.mag }}>↗</span> P&L by Segmental — {PL_SEG_DATA.year}
+    <div style={{ background: P.bg, color: P.text }}>
+      <div style={{ padding: "20px 20px 10px", borderBottom: `1px solid ${P.border}`, marginBottom: 0 }}>
+        <div style={{ fontSize: 16, fontWeight: 700, color: P.text, marginBottom: 4 }}>
+          <span style={{ color: P.mag }}>↗ </span>P&amp;L by Segmental — {PL_SEG_DATA.year}
         </div>
-        <div style={{ fontSize: "11.5px", color: P.muted }}>P&L consolidated by business segments across all entities. Expand categories to view detail.</div>
+        <div style={{ fontSize: 12, color: P.muted }}>P&amp;L consolidated by business segments across all entities. Expand categories to view detail.</div>
       </div>
       <div style={{ overflowX: "auto" }}>
-        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "12.5px" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
           <thead>
             <tr style={{ background: P.surface, borderBottom: `2px solid ${P.border}` }}>
-              <th style={{ padding: "0.55rem 1rem", fontSize: "11px", fontWeight: 600, color: P.muted, letterSpacing: "0.05em", textAlign: "left", width: "55%" }}>DESCRIPTION</th>
-              {PL_SEG_DATA.columns.map(c => (
-                <th key={c} style={{ padding: "0.55rem 1rem", fontSize: "11px", fontWeight: 600, color: P.muted, letterSpacing: "0.05em", textAlign: "right" }}>{c}</th>
-              ))}
+              <th style={{ padding: "8px 14px", textAlign: "left", color: P.muted, fontSize: 11, fontWeight: 600, letterSpacing: "0.05em", width: "55%" }}>DESCRIPTION</th>
+              {cols.map(c => <th key={c} style={{ padding: "8px 14px", textAlign: "right", color: P.muted, fontSize: 11, fontWeight: 600, letterSpacing: "0.05em" }}>{c}</th>)}
             </tr>
           </thead>
           <tbody>
@@ -5695,44 +5696,36 @@ function PLSegmental() {
               const type = s.type || (s.collapsible ? "section" : "line");
               const isOpen = exp[s.id];
               const bold = type === "subtotal" || type === "total" || type === "section";
-              return (
-                <React.Fragment key={s.id}>
-                  <tr
-                    style={{
-                      borderBottom: `1px solid ${P.border}`,
-                      background: type==="total"?P.surf3:type==="subtotal"?P.surf2:type==="metric"?P.surf2:P.surface,
-                      cursor: s.collapsible ? "pointer" : "default",
-                    }}
-                    onClick={s.collapsible ? () => toggle(s.id) : undefined}
-                  >
-                    <td style={{ padding: "0.5rem 1rem", display: "flex", alignItems: "center", gap: "0.35rem" }}>
-                      {s.collapsible && (
-                        <span style={{ color: P.mag, fontWeight: 700, fontSize: "14px", width: "1rem", flexShrink: 0 }}>
-                          {isOpen ? "∨" : "›"}
-                        </span>
-                      )}
-                      <span style={{ fontWeight: bold ? 700 : 400, paddingLeft: s.collapsible ? 0 : "1.5rem", color: type==="metric" ? P.muted : bold ? P.text : P.sub }}>
-                        {s.label}
-                      </span>
+              const rows = [];
+              rows.push(
+                <tr key={s.id} style={{ background: rowBg(type), borderBottom: `1px solid ${P.border}`, cursor: s.collapsible ? "pointer" : "default" }}
+                  onClick={s.collapsible ? () => tog(s.id) : undefined}>
+                  <td style={{ padding: "8px 14px" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                      {s.collapsible && <span style={{ color: P.mag, fontWeight: 700, fontSize: 14, width: 14, display: "inline-block", flexShrink: 0 }}>{isOpen ? "∨" : "›"}</span>}
+                      <span style={{ fontWeight: bold ? 700 : 400, paddingLeft: s.collapsible ? 0 : 20, color: type==="metric" ? P.muted : P.text }}>{s.label}</span>
+                    </div>
+                  </td>
+                  {s.values.map((v, i) => (
+                    <td key={i} style={{ padding: "8px 14px", textAlign: "right", fontVariantNumeric: "tabular-nums", fontWeight: bold ? 700 : 400, color: type==="metric" ? P.muted : bold ? P.gold : P.text }}>
+                      {fmtSegVal(v, s.format)}
                     </td>
-                    {s.values.map((v, i) => (
-                      <td key={i} style={{ padding: "0.5rem 1rem", textAlign: "right", fontVariantNumeric: "tabular-nums", fontWeight: bold ? 700 : 400, color: type==="metric" ? P.muted : bold ? P.gold : P.text }}>
-                        {fmtSegVal(v, s.format)}
-                      </td>
-                    ))}
-                  </tr>
-                  {s.collapsible && isOpen && s.children.map((child, ci) => (
-                    <tr key={`${s.id}-${ci}`} style={{ background: P.bg2, borderBottom: `1px solid ${P.border}` }}>
-                      <td style={{ padding: "0.4rem 1rem 0.4rem 2.5rem", color: P.sub }}>{child.label}</td>
+                  ))}
+                </tr>
+              );
+              if (s.collapsible && isOpen) {
+                s.children.forEach((child, ci) => {
+                  rows.push(
+                    <tr key={`${s.id}-c${ci}`} style={{ background: P.bg2, borderBottom: `1px solid ${P.border}` }}>
+                      <td style={{ padding: "6px 14px 6px 34px", color: P.sub }}>{child.label}</td>
                       {child.values.map((v, i) => (
-                        <td key={i} style={{ padding: "0.4rem 1rem", textAlign: "right", fontVariantNumeric: "tabular-nums", color: P.sub }}>
-                          {fmtSegVal(v)}
-                        </td>
+                        <td key={i} style={{ padding: "6px 14px", textAlign: "right", fontVariantNumeric: "tabular-nums", color: P.sub }}>{fmtSegVal(v)}</td>
                       ))}
                     </tr>
-                  ))}
-                </React.Fragment>
-              );
+                  );
+                });
+              }
+              return rows;
             })}
           </tbody>
         </table>
@@ -5803,87 +5796,86 @@ const BS_SEG_DATA = {
 
 function BSSectionBlock({ section, exp, toggle }) {
   const isOpen = exp[section.id];
-  return (
-    <>
-      <div
-        style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"0.5rem 0", borderBottom:`1px solid ${P.border}`, cursor:section.collapsible?"pointer":"default", userSelect:"none" }}
-        onClick={section.collapsible ? () => toggle(section.id) : undefined}
-      >
-        <div style={{ display:"flex", alignItems:"center", gap:"0.4rem" }}>
-          {section.collapsible && (
-            <span style={{ color:P.mag, fontWeight:700, fontSize:"14px", width:"1rem", flexShrink:0 }}>
-              {isOpen ? "∨" : "›"}
-            </span>
-          )}
-          <span style={{ fontWeight:600, color:P.text }}>{section.label}</span>
-        </div>
-        <span style={{ fontWeight:600, fontVariantNumeric:"tabular-nums", color:P.gold }}>{section.total===0?"0":section.total.toLocaleString("en-US")}</span>
+  const rows = [];
+  rows.push(
+    <div key="hdr" style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"8px 0", borderBottom:`1px solid ${P.border}`, cursor:section.collapsible?"pointer":"default", userSelect:"none" }}
+      onClick={section.collapsible ? () => toggle(section.id) : undefined}>
+      <div style={{ display:"flex", alignItems:"center", gap:6 }}>
+        {section.collapsible && <span style={{ color:P.mag, fontWeight:700, fontSize:14, width:14, display:"inline-block" }}>{isOpen ? "∨" : "›"}</span>}
+        <span style={{ fontWeight:600, color:P.text }}>{section.label}</span>
       </div>
-      {section.collapsible && isOpen && section.children.map((c, i) => (
-        <div key={i} style={{ display:"flex", justifyContent:"space-between", padding:"0.35rem 0 0.35rem 2.5rem", background:P.bg2, borderBottom:`1px solid ${P.border}` }}>
-          <span style={{ color:P.sub }}>{c.label}</span>
-          <span style={{ fontVariantNumeric:"tabular-nums", color:P.sub }}>{c.value===0?"0":c.value.toLocaleString("en-US")}</span>
-        </div>
-      ))}
-    </>
+      <span style={{ fontWeight:600, fontVariantNumeric:"tabular-nums", color:P.gold }}>{section.total===0?"0":section.total.toLocaleString("en-US")}</span>
+    </div>
   );
+  if (section.collapsible && isOpen) {
+    section.children.forEach((c, i) => {
+      rows.push(
+        <div key={i} style={{ display:"flex", justifyContent:"space-between", padding:"6px 0 6px 34px", background:P.bg2, borderBottom:`1px solid ${P.border}` }}>
+          <span style={{ color:P.sub, fontSize:12 }}>{c.label}</span>
+          <span style={{ fontVariantNumeric:"tabular-nums", color:P.sub, fontSize:12 }}>{c.value===0?"0":c.value.toLocaleString("en-US")}</span>
+        </div>
+      );
+    });
+  }
+  return rows;
 }
 
 function BalanceSheetSegmental() {
-  const allSections = [...BS_SEG_DATA.assets.sections, ...BS_SEG_DATA.el.sections, BS_SEG_DATA.el.equity];
+  const allSecs = [...BS_SEG_DATA.assets.sections, ...BS_SEG_DATA.el.sections, BS_SEG_DATA.el.equity];
   const init = {};
-  allSections.forEach(s => { if (s.collapsible) init[s.id] = s.children && s.children.length > 0; });
+  allSecs.forEach(s => { if (s.collapsible) init[s.id] = !!(s.children && s.children.length); });
   const [exp, setExp] = useState(init);
-  const toggle = id => setExp(p => ({ ...p, [id]: !p[id] }));
+  const tog = id => setExp(p => ({ ...p, [id]: !p[id] }));
   const el = BS_SEG_DATA.el;
 
-  const rowStyle = (bg) => ({ display:"flex", justifyContent:"space-between", padding:"0.6rem 0", background:bg });
+  const GrandRow = ({ label, value }) => (
+    <div style={{ display:"flex", justifyContent:"space-between", padding:"10px 0", borderTop:`2px solid ${P.border}`, borderBottom:`2px solid ${P.border}`, marginTop:8, background:P.surf2 }}>
+      <span style={{ fontWeight:700, color:P.text }}>{label}</span>
+      <span style={{ fontWeight:700, color:P.gold, fontVariantNumeric:"tabular-nums" }}>{value.toLocaleString("en-US")}</span>
+    </div>
+  );
+
+  const SubRow = ({ label, value }) => (
+    <div style={{ display:"flex", justifyContent:"space-between", padding:"8px 0", borderTop:`1px solid ${P.border}`, borderBottom:`1px solid ${P.border}`, background:P.surf2, marginTop:4 }}>
+      <span style={{ fontWeight:700, color:P.text }}>{label}</span>
+      <span style={{ fontWeight:700, color:P.gold, fontVariantNumeric:"tabular-nums" }}>{value.toLocaleString("en-US")}</span>
+    </div>
+  );
+
+  const ColHdr = () => (
+    <div style={{ display:"flex", justifyContent:"space-between", fontSize:11, fontWeight:600, color:P.muted, letterSpacing:"0.05em", padding:"6px 0", borderBottom:`1px solid ${P.border}`, marginBottom:4 }}>
+      <span>DESCRIPTION</span><span>AMOUNT</span>
+    </div>
+  );
 
   return (
-    <div style={{ background:P.bg, minHeight:"100vh", color:P.text, fontFamily:"'DM Sans','Segoe UI',sans-serif" }}>
-      <div style={{ padding:"1.25rem 1.25rem 0.6rem", borderBottom:`1px solid ${P.border}` }}>
-        <div style={{ fontSize:"15px", fontWeight:700, display:"flex", alignItems:"center", gap:"0.4rem", marginBottom:"0.2rem" }}>
-          <span style={{ color:P.mag }}>↗</span> Balance Sheet — {BS_SEG_DATA.year}
+    <div style={{ background:P.bg, color:P.text }}>
+      <div style={{ padding:"20px 20px 10px", borderBottom:`1px solid ${P.border}` }}>
+        <div style={{ fontSize:16, fontWeight:700, color:P.text, marginBottom:4 }}>
+          <span style={{ color:P.mag }}>↗ </span>Balance Sheet — {BS_SEG_DATA.year}
         </div>
-        <div style={{ fontSize:"11.5px", color:P.muted }}>Consolidated Balance Sheet with collapsible Assets, Liabilities, and Equity sections.</div>
+        <div style={{ fontSize:12, color:P.muted }}>Consolidated Balance Sheet with collapsible Assets, Liabilities, and Equity sections.</div>
       </div>
-      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", alignItems:"start", fontSize:"12.5px" }}>
-
-        {/* ── Assets ── */}
-        <div style={{ padding:"1rem 1.25rem 2rem" }}>
-          <div style={{ fontSize:"14px", fontWeight:700, marginBottom:"0.6rem", paddingBottom:"0.35rem", borderBottom:`2px solid ${P.border}` }}>Assets</div>
-          <div style={{ display:"flex", justifyContent:"space-between", fontSize:"11px", fontWeight:600, color:P.muted, letterSpacing:"0.05em", padding:"0.35rem 0", borderBottom:`1px solid ${P.border}`, marginBottom:"0.25rem" }}>
-            <span>DESCRIPTION</span><span>AMOUNT</span>
-          </div>
-          {BS_SEG_DATA.assets.sections.map(s => <BSSectionBlock key={s.id} section={s} exp={exp} toggle={toggle}/>)}
-          <div style={{ ...rowStyle(P.surf2), borderTop:`2px solid ${P.border}`, borderBottom:`2px solid ${P.border}`, marginTop:"0.5rem" }}>
-            <span style={{ fontWeight:700 }}>{BS_SEG_DATA.assets.totalLabel}</span>
-            <span style={{ fontWeight:700, color:P.gold }}>{BS_SEG_DATA.assets.total.toLocaleString("en-US")}</span>
-          </div>
+      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", alignItems:"start", fontSize:13 }}>
+        <div style={{ padding:"16px 20px 32px" }}>
+          <div style={{ fontSize:14, fontWeight:700, color:P.text, marginBottom:10, paddingBottom:6, borderBottom:`2px solid ${P.border}` }}>Assets</div>
+          <ColHdr/>
+          {BS_SEG_DATA.assets.sections.map(s => <BSSectionBlock key={s.id} section={s} exp={exp} toggle={tog}/>)}
+          <GrandRow label={BS_SEG_DATA.assets.totalLabel} value={BS_SEG_DATA.assets.total}/>
         </div>
-
-        {/* ── Equity & Liabilities ── */}
-        <div style={{ padding:"1rem 1.25rem 2rem", borderLeft:`1px solid ${P.border}` }}>
-          <div style={{ fontSize:"14px", fontWeight:700, marginBottom:"0.6rem", paddingBottom:"0.35rem", borderBottom:`2px solid ${P.border}` }}>Equity &amp; Liabilities</div>
-          <div style={{ display:"flex", justifyContent:"space-between", fontSize:"11px", fontWeight:600, color:P.muted, letterSpacing:"0.05em", padding:"0.35rem 0", borderBottom:`1px solid ${P.border}`, marginBottom:"0.25rem" }}>
-            <span>DESCRIPTION</span><span>AMOUNT</span>
-          </div>
-          {el.sections.map(s => <BSSectionBlock key={s.id} section={s} exp={exp} toggle={toggle}/>)}
-          <div style={{ ...rowStyle(P.surf2), borderTop:`1px solid ${P.border}`, borderBottom:`1px solid ${P.border}`, marginTop:"0.25rem" }}>
-            <span style={{ fontWeight:700 }}>{el.totalLiabilitiesLabel}</span>
-            <span style={{ fontWeight:700, color:P.gold }}>{el.totalLiabilities.toLocaleString("en-US")}</span>
-          </div>
-          <div style={{ display:"flex", justifyContent:"space-between", padding:"0.45rem 0.5rem", color:"#FAA819", fontWeight:500, background:P.surf3, borderRadius:"3px", margin:"0.35rem 0", fontStyle:"italic" }}>
+        <div style={{ padding:"16px 20px 32px", borderLeft:`1px solid ${P.border}` }}>
+          <div style={{ fontSize:14, fontWeight:700, color:P.text, marginBottom:10, paddingBottom:6, borderBottom:`2px solid ${P.border}` }}>Equity &amp; Liabilities</div>
+          <ColHdr/>
+          {el.sections.map(s => <BSSectionBlock key={s.id} section={s} exp={exp} toggle={tog}/>)}
+          <SubRow label={el.totalLiabilitiesLabel} value={el.totalLiabilities}/>
+          <div style={{ display:"flex", justifyContent:"space-between", padding:"8px 10px", color:P.gold, fontWeight:500, background:P.surf3, borderRadius:4, margin:"6px 0", fontStyle:"italic", fontSize:13 }}>
             <span>Net Current Assets</span>
-            <span>{el.netCurrentAssets.toLocaleString("en-US")}</span>
+            <span style={{ fontVariantNumeric:"tabular-nums" }}>{el.netCurrentAssets.toLocaleString("en-US")}</span>
           </div>
-          <BSSectionBlock section={el.equity} exp={exp} toggle={toggle}/>
-          <div style={{ ...rowStyle(P.surf2), borderTop:`2px solid ${P.border}`, borderBottom:`2px solid ${P.border}`, marginTop:"0.5rem" }}>
-            <span style={{ fontWeight:700 }}>{el.totalLabel}</span>
-            <span style={{ fontWeight:700, color:P.gold }}>{el.total.toLocaleString("en-US")}</span>
-          </div>
+          <BSSectionBlock section={el.equity} exp={exp} toggle={tog}/>
+          <GrandRow label={el.totalLabel} value={el.total}/>
           {!el.balanced && (
-            <div style={{ marginTop:"1rem", display:"inline-block", padding:"0.3rem 0.75rem", background:`${P.red}20`, border:`1px solid ${P.red}40`, borderRadius:"4px", color:P.red, fontSize:"11.5px", fontWeight:500 }}>
+            <div style={{ marginTop:16, display:"inline-block", padding:"5px 12px", background:`${P.red}20`, border:`1px solid ${P.red}40`, borderRadius:4, color:P.red, fontSize:12, fontWeight:500 }}>
               ⚠ WARNING: Balance Sheet Not Balanced
             </div>
           )}
