@@ -984,11 +984,21 @@ const DEFAULT_COA = [
 ];
 
 // ── Sample entities ───────────────────────────────────────────────
+// ownershipPct is held as a fraction (0.95 = 95%) and drives minority interest.
+// segment groups entities for segmental reporting; parentId records the holder.
 const DEFAULT_ENTITIES = [
-  { id:"E001", name:"Malaysia HQ",        country:"Malaysia",    currency:"MYR", type:"Headquarters",  active:true, color:P.mag    },
-  { id:"E002", name:"Singapore Office",   country:"Singapore",   currency:"SGD", type:"Subsidiary",    active:true, color:P.gold   },
-  { id:"E003", name:"Philippines Branch", country:"Philippines", currency:"PHP", type:"Branch",        active:true, color:P.purple },
+  { id:"E001", name:"Malaysia HQ",        country:"Malaysia",    currency:"MYR", type:"Headquarters",  active:true, ownershipPct:1, segment:"", parentId:"", color:P.mag    },
+  { id:"E002", name:"Singapore Office",   country:"Singapore",   currency:"SGD", type:"Subsidiary",    active:true, ownershipPct:1, segment:"", parentId:"", color:P.gold   },
+  { id:"E003", name:"Philippines Branch", country:"Philippines", currency:"PHP", type:"Branch",        active:true, ownershipPct:1, segment:"", parentId:"", color:P.purple },
 ];
+
+// Accepts "95", "95%" or "0.95" and returns a fraction. Blank means wholly owned.
+function normaliseOwnership(v) {
+  if (v === "" || v === null || v === undefined) return 1;
+  const n = parseFloat(String(v).replace("%","").trim());
+  if (!isFinite(n)) return 1;
+  return n > 1 ? n / 100 : n;
+}
 
 // ── Sample FX ─────────────────────────────────────────────────────
 const DEFAULT_FX = [
@@ -1027,6 +1037,27 @@ function initStore() {
       const s=JSON.parse(r);
       // Migration: older stores have no subscription block
       if(!s.subscription) s.subscription={...DEFAULT_SUBSCRIPTION};
+      // Migration: entities gained ownershipPct / segment / parentId.
+      // Fill in place so existing saved data is never discarded, then write
+      // back once so the stored shape matches and the migration is not re-run.
+      if(Array.isArray(s.entities) && s.entities.some(e => e.ownershipPct === undefined)){
+        s.entities = s.entities.map(e => ({
+          ...e,
+          ownershipPct: e.ownershipPct === undefined ? 1  : normaliseOwnership(e.ownershipPct),
+          segment:      e.segment      === undefined ? "" : e.segment,
+          parentId:     e.parentId     === undefined ? "" : e.parentId,
+        }));
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch {}
+      }
+      // Backfill any collection missing from an older or partial store. Without
+      // this a single absent array crashes the whole app on render.
+      const FALLBACK = { entities:DEFAULT_ENTITIES, coa:DEFAULT_COA, gl:DEFAULT_GL,
+        fxRates:DEFAULT_FX, ar:DEFAULT_AR, ap:DEFAULT_AP, budget:DEFAULT_BUDGET,
+        sales:DEFAULT_SALES, closeTasks:DEFAULT_CLOSE_TASKS, assets:DEFAULT_ASSETS,
+        headcount:DEFAULT_HEADCOUNT, vendors:DEFAULT_VENDORS, purchaseReqs:DEFAULT_PRS,
+        purchaseOrders:DEFAULT_POS, goodsReceipts:DEFAULT_GRS,
+        supplierInvoices:DEFAULT_INVOICES, paymentRuns:DEFAULT_PAYMENT_RUNS };
+      Object.keys(FALLBACK).forEach(k => { if(!Array.isArray(s[k])) s[k] = FALLBACK[k]; });
       return s;
     }
   } catch {}
@@ -4860,6 +4891,8 @@ function BSModule({gf}){
 function detectFileType(headers) {
   const H = headers.map(h => h.toUpperCase().trim().replace(/\s+/g,""));
   const has = (...keys) => keys.every(k => H.some(h => h.includes(k)));
+  // Entities must be tested before GL: both carry ENTITYID, only entities carry COUNTRY.
+  if (has("ENTITYID","COUNTRY","CURRENCY") && !has("DRACCOUNT")) return "entities";
   if (has("DRACCOUNT","CRACCOUNT"))                          return "gl";
   if (has("STAGE","CLOSEDATE"))                              return "sales";
   if (has("COUNTERPARTY","INVOICEDATE","DUEDATE") && has("STATUS")) {
@@ -4896,6 +4929,25 @@ function parseImport(type, rows, store) {
         amount:     parseFloat(get(r,"AMOUNT")) || 0,
         icEntityId: get(r,"ICENTITYID") || null,
       })).filter(r => r.drAccount && r.crAccount && r.amount);
+    }
+    case "entities": {
+      const PALETTE = [P.mag, P.gold, P.purple, P.blue, P.green, P.orange];
+      return rows.slice(1).map((r, i) => {
+        const id = String(get(r,"ENTITYID") || get(r,"ID") || "").trim();
+        const act = String(get(r,"ACTIVE","TRUE")).trim().toUpperCase();
+        return {
+          id,
+          name:         String(get(r,"NAME") || id).trim(),
+          country:      String(get(r,"COUNTRY")).trim(),
+          currency:    (String(get(r,"CURRENCY")) || "MYR").trim().toUpperCase(),
+          type:         String(get(r,"TYPE") || "Subsidiary").trim(),
+          active:       !["FALSE","N","NO","0"].includes(act),
+          ownershipPct: normaliseOwnership(get(r,"OWNERSHIPPCT")),
+          segment:      String(get(r,"SEGMENT")).trim(),
+          parentId:     String(get(r,"PARENTID")).trim(),
+          color:        String(get(r,"COLOR")).trim() || PALETTE[i % PALETTE.length],
+        };
+      }).filter(r => r.id && r.name);
     }
     case "sales": {
       return rows.slice(1).map(r => ({
@@ -4964,6 +5016,7 @@ function parseImport(type, rows, store) {
 }
 
 const FILE_TYPE_META = {
+  entities:{label:"Entities",       icon:"⬡", color: "#8B5CF6", desc:"EntityId · Name · Country · Currency · Type · Active · OwnershipPct · Segment · ParentId · Color" },
   gl:     { label:"GL Journals",    icon:"⊟", color: "#38BDF8", desc:"EntityId · Period · Date · Ref · Description · DrAccount · CrAccount · Currency · Amount · ICEntityId" },
   sales:  { label:"Sales Deals",    icon:"◉", color: "#22D3A0", desc:"EntityId · Name · Stage · Value · Currency · CloseDate · Owner · Product · Notes" },
   arap:   { label:"AR / AP",        icon:"↕", color: "#FAA819", desc:"Type (AR/AP) · EntityId · Counterparty · InvoiceDate · DueDate · Currency · Amount · Status" },
@@ -5013,6 +5066,14 @@ function ImportHub() {
     let ns = { ...store };
     readyFiles.forEach(f => {
       switch(f.type) {
+        case "entities": {
+          // Merge by id rather than replace: GL rows reference entityId, so
+          // dropping an entity that still has postings would orphan them.
+          const byId = new Map((ns.entities||[]).map(e => [e.id, e]));
+          f.parsed.forEach(e => byId.set(e.id, { ...(byId.get(e.id)||{}), ...e }));
+          ns = { ...ns, entities: [...byId.values()] };
+          break;
+        }
         case "gl":     ns = { ...ns, gl:     [...(ns.gl||[]),     ...f.parsed] }; break;
         case "sales":  ns = { ...ns, sales:  [...(ns.sales||[]),  ...f.parsed] }; break;
         case "budget": ns = { ...ns, budget: [...(ns.budget||[]), ...f.parsed] }; break;
@@ -5035,6 +5096,9 @@ function ImportHub() {
   // Template pack download — all 6 templates as separate CSVs zipped... 
   // Instead: download them one by one via a loop (no zip dependency)
   const TEMPLATES = {
+    entities: "EntityId,Name,Country,Currency,Type,Active,OwnershipPct,Segment,ParentId,Color\n" +
+              "E001,Malaysia HQ,Malaysia,MYR,Headquarters,TRUE,100,Trading,,#B84480\n" +
+              "E002,Singapore Office,Singapore,SGD,Subsidiary,TRUE,80,Trading,E001,#FAA819",
     gl:     "EntityId,Period,Date,Ref,Description,DrAccount,CrAccount,Currency,Amount,ICEntityId\nE001,Jan 2025,2025-01-31,SLS-001,Revenue recognition,1100,4000,MYR,50000,\nE001,Jan 2025,2025-01-31,EXP-001,Staff costs,5100,2000,MYR,20000,",
     sales:  "EntityId,Name,Stage,Value,Currency,CloseDate,Owner,Product,Notes\nE001,Deal Name Here,Proposal,50000,MYR,2025-03-31,Owner Name,AI Solutions,Notes",
     arap:   "Type,EntityId,Counterparty,InvoiceDate,DueDate,Currency,Amount,Status,Notes\nAR,E001,Client Sdn Bhd,2025-01-01,2025-01-31,MYR,50000,Outstanding,Invoice notes\nAP,E001,Vendor Pte Ltd,2025-01-01,2025-01-31,SGD,5000,Outstanding,Bill notes",
@@ -5295,6 +5359,13 @@ function ImportHub() {
 const AUTH_KEY     = "finflow_auth_v1";
 const SESSION_KEY  = "finflow_session";
 
+// ── Dev bypass ────────────────────────────────────────────────────
+// While the app is under active development, skip the landing page and
+// the login and open straight into the admin session. The login screen
+// itself is untouched and still reachable — append ?login=1 to the URL,
+// or use Log out. Set this to false before any client-facing deploy.
+const DEV_BYPASS_AUTH = true;
+
 // Client-visible modules only
 const CLIENT_MODULES = ["home","sales","arap","fx","pl","bs","budget","cashflow","wc","forecast","close","assets","headcount","reportpack","ai","vendors"];
 const ADMIN_MODULES  = ["import","home","entities","coa","fx","sales","arap","gl","ic","pl","bs","budget","cashflow","wc","forecast","close","assets","headcount","reportpack","ai","vendors","pr","po","gr","sinvoice","payrun","users"];
@@ -5425,6 +5496,14 @@ function loadSession(){
 }
 function saveSession(s){try{sessionStorage.setItem(SESSION_KEY,JSON.stringify(s));}catch{}}
 function clearSession(){try{sessionStorage.removeItem(SESSION_KEY);}catch{}}
+
+// Session handed to AuthedApp when DEV_BYPASS_AUTH is on — same shape
+// LoginScreen builds, so nothing downstream can tell the difference.
+// Called at render time, not module-eval, so the consts below are set.
+function devSession(){
+  const u=loadUsers().find(x=>x.role==="admin"&&x.active)||DEFAULT_ADMIN;
+  return{userId:u.id,role:u.role,name:u.name,username:u.username,entityIds:u.entityIds,loginAt:Date.now()};
+}
 
 // ── Simple hash (not cryptographic — demo/client preview use only) ─
 function hashPwd(s){
@@ -6351,23 +6430,49 @@ function BalanceSheetSegmental() {
   );
 }
 
+// Small marker shown only while the dev bypass is active, so an
+// auth-off build is never mistaken for a client-ready one.
+function DevAuthBadge(){
+  return(
+    <div style={{position:"fixed",left:10,bottom:10,zIndex:9999,pointerEvents:"none",
+      padding:"3px 9px",borderRadius:20,fontSize:9,fontWeight:700,letterSpacing:1,
+      background:`${P.gold}1A`,border:`1px solid ${P.gold}40`,color:P.gold,opacity:.75}}>
+      DEV · AUTH OFF
+    </div>
+  );
+}
+
 export default function FinFlowRoot(){
   // Read ?user= from URL for shareable links
   const urlUser=useMemo(()=>{
     try{const p=new URLSearchParams(window.location.search);return p.get("user")||"";}catch{return "";}
   },[]);
 
+  // ?login=1 forces the login screen even while the dev bypass is on.
+  const forceLogin=useMemo(()=>{
+    try{return new URLSearchParams(window.location.search).get("login")==="1";}catch{return false;}
+  },[]);
+  const bypass=DEV_BYPASS_AUTH&&!forceLogin;
+
   const [screen,setScreen]=useState(()=>{
+    if(forceLogin) return "login";   // explicit ?login=1 beats everything
+    if(bypass) return "app";
     const s=loadSession();
     if(s) return "app";
     return urlUser?"login":"landing";
   });
-  const [session,setSession]=useState(()=>loadSession());
+  const [session,setSession]=useState(()=>bypass?devSession():loadSession());
 
   function handleLogin(s){setSession(s);setScreen("app");}
-  function handleLogout(){clearSession();setSession(null);setScreen(urlUser?"login":"landing");}
+  function handleLogout(){
+    clearSession();
+    setSession(null);
+    // With the bypass on there is no landing page to fall back to, so Log
+    // out lands on the login screen — the escape hatch for demoing auth.
+    setScreen(bypass?"login":(urlUser?"login":"landing"));
+  }
 
-  if(screen==="app"&&session)  return <AuthedApp session={session} onLogout={handleLogout}/>;
+  if(screen==="app"&&session)  return <><AuthedApp session={session} onLogout={handleLogout}/>{bypass&&<DevAuthBadge/>}</>;
   if(screen==="login")         return <LoginScreen onLogin={handleLogin} prefillUser={urlUser}/>;
   return <LandingPage onEnter={()=>setScreen("login")}/>;
 }
