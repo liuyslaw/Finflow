@@ -5359,6 +5359,13 @@ function ImportHub() {
 const AUTH_KEY     = "finflow_auth_v1";
 const SESSION_KEY  = "finflow_session";
 
+// ── Dev bypass ────────────────────────────────────────────────────
+// While the app is under active development, skip the landing page and
+// the login and open straight into the admin session. The login screen
+// itself is untouched and still reachable — append ?login=1 to the URL,
+// or use Log out. Set this to false before any client-facing deploy.
+const DEV_BYPASS_AUTH = true;
+
 // Client-visible modules only
 const CLIENT_MODULES = ["home","sales","arap","fx","pl","bs","budget","cashflow","wc","forecast","close","assets","headcount","reportpack","ai","vendors"];
 const ADMIN_MODULES  = ["import","home","entities","coa","fx","sales","arap","gl","ic","pl","bs","budget","cashflow","wc","forecast","close","assets","headcount","reportpack","ai","vendors","pr","po","gr","sinvoice","payrun","users"];
@@ -5489,6 +5496,14 @@ function loadSession(){
 }
 function saveSession(s){try{sessionStorage.setItem(SESSION_KEY,JSON.stringify(s));}catch{}}
 function clearSession(){try{sessionStorage.removeItem(SESSION_KEY);}catch{}}
+
+// Session handed to AuthedApp when DEV_BYPASS_AUTH is on — same shape
+// LoginScreen builds, so nothing downstream can tell the difference.
+// Called at render time, not module-eval, so the consts below are set.
+function devSession(){
+  const u=loadUsers().find(x=>x.role==="admin"&&x.active)||DEFAULT_ADMIN;
+  return{userId:u.id,role:u.role,name:u.name,username:u.username,entityIds:u.entityIds,loginAt:Date.now()};
+}
 
 // ── Simple hash (not cryptographic — demo/client preview use only) ─
 function hashPwd(s){
@@ -6415,23 +6430,49 @@ function BalanceSheetSegmental() {
   );
 }
 
+// Small marker shown only while the dev bypass is active, so an
+// auth-off build is never mistaken for a client-ready one.
+function DevAuthBadge(){
+  return(
+    <div style={{position:"fixed",left:10,bottom:10,zIndex:9999,pointerEvents:"none",
+      padding:"3px 9px",borderRadius:20,fontSize:9,fontWeight:700,letterSpacing:1,
+      background:`${P.gold}1A`,border:`1px solid ${P.gold}40`,color:P.gold,opacity:.75}}>
+      DEV · AUTH OFF
+    </div>
+  );
+}
+
 export default function FinFlowRoot(){
   // Read ?user= from URL for shareable links
   const urlUser=useMemo(()=>{
     try{const p=new URLSearchParams(window.location.search);return p.get("user")||"";}catch{return "";}
   },[]);
 
+  // ?login=1 forces the login screen even while the dev bypass is on.
+  const forceLogin=useMemo(()=>{
+    try{return new URLSearchParams(window.location.search).get("login")==="1";}catch{return false;}
+  },[]);
+  const bypass=DEV_BYPASS_AUTH&&!forceLogin;
+
   const [screen,setScreen]=useState(()=>{
+    if(forceLogin) return "login";   // explicit ?login=1 beats everything
+    if(bypass) return "app";
     const s=loadSession();
     if(s) return "app";
     return urlUser?"login":"landing";
   });
-  const [session,setSession]=useState(()=>loadSession());
+  const [session,setSession]=useState(()=>bypass?devSession():loadSession());
 
   function handleLogin(s){setSession(s);setScreen("app");}
-  function handleLogout(){clearSession();setSession(null);setScreen(urlUser?"login":"landing");}
+  function handleLogout(){
+    clearSession();
+    setSession(null);
+    // With the bypass on there is no landing page to fall back to, so Log
+    // out lands on the login screen — the escape hatch for demoing auth.
+    setScreen(bypass?"login":(urlUser?"login":"landing"));
+  }
 
-  if(screen==="app"&&session)  return <AuthedApp session={session} onLogout={handleLogout}/>;
+  if(screen==="app"&&session)  return <><AuthedApp session={session} onLogout={handleLogout}/>{bypass&&<DevAuthBadge/>}</>;
   if(screen==="login")         return <LoginScreen onLogin={handleLogin} prefillUser={urlUser}/>;
   return <LandingPage onEnter={()=>setScreen("login")}/>;
 }
